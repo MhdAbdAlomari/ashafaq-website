@@ -20,29 +20,31 @@ function PhoneFrame({
   className = "",
   delay = 0,
   rotate = 0,
+  fit = "cover",
 }: {
   src: string;
   className?: string;
   delay?: number;
   rotate?: number;
+  fit?: "cover" | "contain";
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 60, rotate: rotate * 0.5 }}
       whileInView={{ opacity: 1, y: 0, rotate }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
       className={`relative ${className}`}
     >
       <div className="absolute -inset-3 bg-brand-gradient opacity-25 blur-2xl rounded-[3rem]" />
-      <div className="relative w-[230px] sm:w-[260px] aspect-[9/19.5] rounded-[2.5rem] bg-[#0a0d2a] border-[10px] border-[#0a0d2a] glow-ring overflow-hidden">
+      <div className="relative w-[220px] sm:w-[260px] aspect-[9/19.5] rounded-[2.5rem] bg-[#0a0d2a] border-[10px] border-[#0a0d2a] glow-ring overflow-hidden">
         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-10" />
         <Image
           src={src}
           alt="Ashafaq App Screenshot"
           fill
           sizes="260px"
-          className="object-cover"
+          className={fit === "contain" ? "object-contain" : "object-cover"}
         />
       </div>
     </motion.div>
@@ -61,32 +63,32 @@ export default function AppSection() {
         <div className="absolute bottom-0 -end-32 w-[36rem] h-[36rem] bg-[#2E93B9] opacity-25 blur-[140px] rounded-full" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
-        <div>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="min-w-0 w-full">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="text-xs font-semibold tracking-[0.3em] text-[#2E93B9] uppercase"
+            className="block text-xs font-semibold tracking-[0.3em] text-[#2E93B9] uppercase"
           >
             {dict.app.eyebrow}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gradient leading-[1.2] pb-1"
+            className="mt-3 text-[26px] leading-[1.3] sm:text-4xl sm:leading-[1.2] lg:text-5xl font-extrabold sm:tracking-tight text-gradient pb-2 break-words"
           >
             {dict.app.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-5 text-white/70 max-w-lg"
+            className="mt-5 text-sm sm:text-base text-white/70 max-w-lg leading-relaxed break-words"
           >
             {dict.app.subtitle}
           </motion.p>
@@ -164,12 +166,18 @@ export default function AppSection() {
           </div>
         </div>
 
-        {/* Mobile phones row */}
-        <div className="lg:hidden -mx-5">
-          <div className="flex gap-5 overflow-x-auto px-5 pb-4 no-scrollbar snap-x snap-mandatory">
+        {/* Mobile phones row — horizontal swipe only, full frame visible */}
+        <div className="lg:hidden -mx-5 w-screen max-w-[100vw]">
+          <div
+            className="flex gap-5 overflow-x-auto overflow-y-hidden px-5 py-6 no-scrollbar snap-x snap-mandatory overscroll-x-contain"
+            style={{
+              touchAction: "pan-x",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
             {SCREENS.slice(0, 5).map((src, i) => (
               <div key={i} className="snap-center shrink-0">
-                <PhoneFrame src={src} delay={i * 0.1} />
+                <PhoneFrame src={src} delay={i * 0.1} fit="contain" />
               </div>
             ))}
           </div>

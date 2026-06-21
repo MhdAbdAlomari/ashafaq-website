@@ -108,16 +108,30 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden overflow-hidden bg-[#070819]/95 backdrop-blur-xl border-b border-white/5"
+            transition={{ duration: 0.25 }}
+            className="lg:hidden overflow-hidden bg-[#070819]/95 backdrop-blur-xl border-b border-white/5 pointer-events-auto"
           >
             <ul className="px-5 py-4 flex flex-col gap-1">
               {links.map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 text-base rounded-xl hover:bg-white/5"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                      const id = l.href.slice(1);
+                      requestAnimationFrame(() => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                          el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                          history.replaceState(null, "", l.href);
+                        }
+                      });
+                    }}
+                    className="block px-4 py-3 text-base rounded-xl hover:bg-white/5 active:bg-white/10 touch-manipulation"
                   >
                     {l.label}
                   </a>
