@@ -112,31 +112,35 @@ export default function Navbar() {
             className="lg:hidden overflow-hidden bg-[#070819]/95 backdrop-blur-xl border-b border-white/5 pointer-events-auto"
           >
             <ul className="px-5 py-4 flex flex-col gap-1">
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setOpen(false);
-                      const id = l.href.slice(1);
-                      requestAnimationFrame(() => {
-                        const el = document.getElementById(id);
-                        if (el) {
-                          el.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                          });
-                          history.replaceState(null, "", l.href);
-                        }
-                      });
-                    }}
-                    className="block px-4 py-3 text-base rounded-xl hover:bg-white/5 active:bg-white/10 touch-manipulation"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
+              {links.map((l) => {
+                const navigate = () => {
+                  const id = l.href.slice(1);
+                  const el = document.getElementById(id);
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    history.replaceState(null, "", l.href);
+                  }
+                  setOpen(false);
+                };
+                return (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      onPointerUp={(e) => {
+                        e.preventDefault();
+                        navigate();
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (e.detail === 0) navigate();
+                      }}
+                      className="block px-4 py-3 text-base rounded-xl hover:bg-white/5 active:bg-white/10 touch-manipulation"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         )}
