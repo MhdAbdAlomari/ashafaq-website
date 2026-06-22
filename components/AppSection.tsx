@@ -169,9 +169,9 @@ export default function AppSection() {
         {/* Mobile phones row — horizontal swipe only, full frame visible */}
         <div className="lg:hidden -mx-5 w-screen max-w-[100vw]">
           <div
-            className="flex gap-5 overflow-x-auto overflow-y-hidden px-5 py-6 no-scrollbar snap-x snap-mandatory overscroll-x-contain"
+            className="flex gap-5 overflow-x-auto px-5 py-6 no-scrollbar snap-x snap-mandatory overscroll-x-contain"
             style={{
-              touchAction: "pan-x",
+              touchAction: "pan-x pan-y",
               WebkitOverflowScrolling: "touch",
             }}
           >
