@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 shrink-0 rounded-xl bg-brand-gradient p-1.5 glow-ring">
               <Image
-                src="/images/Logo1.png"
+                src="/ar/images/Logo1.png"
                 alt="Ashafaq"
                 width={48}
                 height={48}

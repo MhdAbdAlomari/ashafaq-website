@@ -16,7 +16,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://ashafaq.com.sa";
+const SITE_URL = "https://landing.ashafaq-wash.net/ar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -83,8 +83,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/Logo1.png",
-    apple: "/images/Logo1.png",
+    icon: "/ar/images/Logo1.png",
+    apple: "/ar/images/Logo1.png",
   },
   category: "business",
 };

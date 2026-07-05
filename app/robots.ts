@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: "https://ashafaq.com.sa/sitemap.xml",
-    host: "https://ashafaq.com.sa",
+    sitemap: "https://landing.ashafaq-wash.net/ar/sitemap.xml",
+    host: "https://landing.ashafaq-wash.net",
   };
 }

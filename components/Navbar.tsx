@@ -41,7 +41,7 @@ export default function Navbar() {
         <Link href="#home" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden bg-brand-gradient p-1.5 glow-ring">
             <Image
-              src="/images/Logo1.png"
+              src="/ar/images/Logo1.png"
               alt="Ashafaq"
               width={64}
               height={64}
