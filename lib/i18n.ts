@@ -2,11 +2,12 @@ export type Locale = "ar" | "en";
 
 export const CONTACT = {
   email: "ashafaq.wash@gmail.com",
-  phone: "+966 50 971 3181",
-  phoneE164: "+966509713181",
-  whatsapp: "https://wa.me/966509713181",
+  phone: "0114787878",
+  phoneE164: "0114787878",
+  whatsapp: "https://wa.me/966114787878",
+  whatsappDisplay: "+966114787878",
   mailto: "mailto:ashafaq.wash@gmail.com",
-  tel: "tel:+966509713181",
+  tel: "tel:0114787878",
 };
 
 export const dictionaries = {

@@ -107,7 +107,7 @@ const jsonLd = {
     "Leading Saudi car wash brand offering professional hand washing, detailing, polishing, and mobile car wash service across Riyadh.",
   foundingDate: "2017",
   email: "ashafaq.wash@gmail.com",
-  telephone: "+966509713181",
+  telephone: "+966114787878",
   areaServed: { "@type": "City", name: "Riyadh" },
   address: {
     "@type": "PostalAddress",
@@ -117,7 +117,7 @@ const jsonLd = {
   contactPoint: [
     {
       "@type": "ContactPoint",
-      telephone: "+966509713181",
+      telephone: "+966114787878",
       email: "ashafaq.wash@gmail.com",
       contactType: "customer service",
       areaServed: "SA",
