@@ -30,10 +30,10 @@ function PhoneFrame({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60, rotate: rotate * 0.5 }}
+      initial={{ opacity: 0, y: 40, rotate }}
       whileInView={{ opacity: 1, y: 0, rotate }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={`relative ${className}`}
     >
       <div className="absolute -inset-3 bg-brand-gradient opacity-25 blur-2xl rounded-[3rem]" />
@@ -44,6 +44,7 @@ function PhoneFrame({
           alt="Ashafaq App Screenshot"
           fill
           sizes="260px"
+          loading="eager"
           className={fit === "contain" ? "object-contain" : "object-cover"}
         />
       </div>

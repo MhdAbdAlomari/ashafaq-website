@@ -10,7 +10,7 @@ export default function Hero() {
 
   const particles = useMemo(
     () =>
-      Array.from({ length: 28 }).map((_, i) => {
+      Array.from({ length: 14 }).map((_, i) => {
         const left = (i * 37) % 100;
         const top = (i * 53) % 100;
         const dx = ((i * 17) % 200) - 100;

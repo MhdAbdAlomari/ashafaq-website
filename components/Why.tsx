@@ -31,7 +31,7 @@ export default function Why() {
                   height={110}
                   className="w-full h-full object-contain"
                 />
-              </div>0
+              </div>
               <div className="min-w-0">
                 <div className="text-xs uppercase tracking-[0.25em] text-[#2E93B9]">
                   {dict.common.certified}

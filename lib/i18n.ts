@@ -67,14 +67,6 @@ export const dictionaries = {
           desc: "تنظيف عميق للمقصورة والهيكل بأحدث التقنيات.",
         },
         {
-          title: "التلميع والعناية المتقدمة",
-          desc: "إعادة بريق الطلاء وحمايته لمظهر يدوم طويلاً.",
-        },
-        {
-          title: "حماية السيارة",
-          desc: "طبقات حماية متقدمة ضد الخدوش والعوامل البيئية.",
-        },
-        {
           title: "الغسيل المتنقل",
           desc: "نأتي إليك في المنزل أو العمل بكامل المعدات.",
         },
@@ -217,14 +209,6 @@ export const dictionaries = {
         {
           title: "Interior & Exterior Wash",
           desc: "Deep cleaning of cabin and body using the latest techniques.",
-        },
-        {
-          title: "Polishing & Advanced Care",
-          desc: "Restore paint brilliance with long-lasting protection.",
-        },
-        {
-          title: "Vehicle Protection",
-          desc: "Advanced protective coatings against scratches and the elements.",
         },
         {
           title: "Mobile Car Wash",

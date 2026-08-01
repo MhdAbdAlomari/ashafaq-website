@@ -62,7 +62,6 @@ html[dir="ltr"] body { font-family: var(--font-inter), system-ui, sans-serif; }
 }
 .mesh-blob {
   animation: mesh-shift 18s ease-in-out infinite;
-  will-change: transform;
 }
 
 @keyframes float-y {
@@ -70,6 +69,15 @@ html[dir="ltr"] body { font-family: var(--font-inter), system-ui, sans-serif; }
   50% { transform: translateY(-14px); }
 }
 .float-y { animation: float-y 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh-blob, .float-y, .particle { animation: none !important; }
+}
+
+@media (max-width: 640px) {
+  .mesh-blob { animation-duration: 40s; }
+  .float-y { animation: none; }
+}
 
 @keyframes shine {
   0% { transform: translateX(-120%) skewX(-20deg); }

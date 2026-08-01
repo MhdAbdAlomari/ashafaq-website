@@ -41,10 +41,6 @@ export const metadata: Metadata = {
   publisher: "Ashafaq Car Wash",
   alternates: {
     canonical: "/",
-    languages: {
-      ar: "/",
-      en: "/?lang=en",
-    },
   },
   openGraph: {
     type: "website",
