@@ -29,6 +29,7 @@ export const dictionaries = {
       home: "الرئيسية",
       services: "الخدمات",
       app: "التطبيق",
+      companies: "الشركات",
       branches: "الفروع",
       franchise: "الامتياز",
       contact: "تواصل معنا",
@@ -93,6 +94,60 @@ export const dictionaries = {
       iosBottom: "App Store",
       androidTop: "متوفر على",
       androidBottom: "Google Play",
+    },
+    companies: {
+      eyebrow: "للشركات",
+      title: "أسطول نظيف دائماً — بطلب واحد، لا عشرة",
+      subtitle:
+        "نظام متكامل لغسيل سيارات الشركات: احجز لأسطولك كاملاً بطلب مجمّع واحد، بأي مزيج أحجام، وتابعه كمجموعة واحدة من الحجز حتى الإنجاز.",
+      billingHeading: "نظاما فوترة",
+      billing: [
+        {
+          title: "اشتراك شهري ثابت (نظام الحصص)",
+          desc: "حصة غسلات محددة لكل حجم سيارة، تُخصم منها الطلبات مباشرة بلا أي دفع، مع متابعة المتبقي وتقارير قابلة للتصدير.",
+        },
+        {
+          title: "ادفع وقت الاستخدام (نظام المحفظة)",
+          desc: "رصيد مرن يُخصم منه كل طلب بسعره، كشف حساب لكل عملية، وتقارير مالية قابلة للتصدير.",
+        },
+      ],
+      channelsHeading: "ثلاث طرق نصل بها لسياراتك",
+      channels: [
+        {
+          title: "عنوان الشركة",
+          desc: "فريقنا يحضر لموقعكم.",
+        },
+        {
+          title: "أحد فروعنا",
+          desc: "استقبال الأسطول في أي فرع.",
+        },
+        {
+          title: "الخدمة المتنقلة",
+          desc: "غسيل سريع في الموقع الذي تختارونه.",
+        },
+      ],
+      sizesHeading: "نخدم جميع أحجام السيارات",
+      sizes: [
+        { label: "سيارة صغيرة", src: "/images/Small_Car_new.png" },
+        { label: "سيارة وسط", src: "/images/Medium_Car_new.png" },
+        { label: "سيارة كبيرة", src: "/images/Big_car_new.png" },
+        { label: "فان", src: "/images/van_car.png" },
+        { label: "باص", src: "/images/Bus_Car_new.png" },
+        { label: "شاحنة", src: "/images/Truck_Car_new.png" },
+      ],
+      featuresHeading: "مزايا الإدارة",
+      features: [
+        "طلب مجمّع شفاف بسعر لكل سيارة ومعاينة قبل التأكيد",
+        "متابعة الطلب كمجموعة واحدة حتى الإنجاز",
+        "لوحة أسطول بحصص كل حجم والمتبقي",
+        "إضافة أعضاء يحجزون بسيارات الشركة",
+        "تقارير غسلات وسيارات وحركات مالية قابلة للتصدير Excel",
+        "أربع فترات يومية تناسب دوامكم",
+      ],
+      ctaHeading: "جاهزون تبدأون؟",
+      ctaWhatsapp: "واتساب",
+      ctaCall: "اتصال",
+      ctaEmail: "البريد الإلكتروني",
     },
     branches: {
       title: "فروعنا في الرياض",
@@ -173,6 +228,7 @@ export const dictionaries = {
       home: "Home",
       services: "Services",
       app: "App",
+      companies: "Companies",
       branches: "Branches",
       franchise: "Franchise",
       contact: "Contact",
@@ -237,6 +293,60 @@ export const dictionaries = {
       iosBottom: "App Store",
       androidTop: "GET IT ON",
       androidBottom: "Google Play",
+    },
+    companies: {
+      eyebrow: "For Companies",
+      title: "A Clean Fleet — In One Order, Not Ten",
+      subtitle:
+        "A complete corporate car-wash system: book your entire fleet in a single grouped order with any mix of vehicle sizes, and track it as one group from booking to completion.",
+      billingHeading: "Two Billing Models",
+      billing: [
+        {
+          title: "Fixed Monthly Subscription (Quota Model)",
+          desc: "A defined wash quota per vehicle size, deducted directly with no per-order payment. Track the remaining balance with exportable reports.",
+        },
+        {
+          title: "Pay-As-You-Go (Wallet Model)",
+          desc: "A flexible balance charged per order at its listed price, itemized statements for every transaction, and exportable financial reports.",
+        },
+      ],
+      channelsHeading: "Three Ways We Reach Your Cars",
+      channels: [
+        {
+          title: "At Your Company Address",
+          desc: "Our team comes to your location.",
+        },
+        {
+          title: "At One of Our Branches",
+          desc: "Bring the fleet to any branch.",
+        },
+        {
+          title: "Mobile Service",
+          desc: "Fast washes wherever you choose.",
+        },
+      ],
+      sizesHeading: "We Serve All Vehicle Sizes",
+      sizes: [
+        { label: "Small Car", src: "/images/Small_Car_new.png" },
+        { label: "Mid-Size Car", src: "/images/Medium_Car_new.png" },
+        { label: "Large Car", src: "/images/Big_car_new.png" },
+        { label: "Van", src: "/images/van_car.png" },
+        { label: "Bus", src: "/images/Bus_Car_new.png" },
+        { label: "Truck", src: "/images/Truck_Car_new.png" },
+      ],
+      featuresHeading: "Management Features",
+      features: [
+        "Transparent grouped order with per-vehicle pricing and preview before confirmation",
+        "Track the order as a single group until completion",
+        "Fleet dashboard with per-size quotas and remaining balance",
+        "Add members who book with company vehicles",
+        "Exportable reports for washes, vehicles, and finances (Excel)",
+        "Four daily time slots to fit your working hours",
+      ],
+      ctaHeading: "Ready to start?",
+      ctaWhatsapp: "WhatsApp",
+      ctaCall: "Call",
+      ctaEmail: "Email",
     },
     branches: {
       title: "Our Branches in Riyadh",

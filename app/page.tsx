@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Trust from "@/components/Trust";
 import Services from "@/components/Services";
 import AppSection from "@/components/AppSection";
+import Companies from "@/components/Companies";
 import Branches from "@/components/Branches";
 import Why from "@/components/Why";
 import Franchise from "@/components/Franchise";
@@ -19,6 +20,7 @@ export default function Home() {
         <Trust />
         <Services />
         <AppSection />
+        <Companies />
         <Branches />
         <Why />
         <Franchise />
