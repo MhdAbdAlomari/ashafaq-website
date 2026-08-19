@@ -11,6 +11,7 @@ export default function Footer() {
   const links = [
     { href: "#services", label: dict.nav.services },
     { href: "#app", label: dict.nav.app },
+    { href: "#companies", label: dict.nav.companies },
     { href: "#branches", label: dict.nav.branches },
     { href: "#franchise", label: dict.nav.franchise },
     { href: "#contact", label: dict.nav.contact },
@@ -28,16 +29,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 shrink-0 rounded-xl bg-brand-gradient p-1.5 glow-ring">
-              <Image
-                src="/ar/images/Logo1.png"
-                alt="Ashafaq"
-                width={48}
-                height={48}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <span className="font-bold">{dict.footer.brand}</span>
+            <Image
+              src="/images/Logo_white.png"
+              alt={dict.footer.brand}
+              width={500}
+              height={268}
+              className="h-11 w-auto object-contain"
+            />
           </div>
           <p className="mt-4 text-sm text-white/55 leading-relaxed">
             {dict.footer.tagline}

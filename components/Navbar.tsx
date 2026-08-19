@@ -21,6 +21,7 @@ export default function Navbar() {
   const links = [
     { href: "#services", label: dict.nav.services },
     { href: "#app", label: dict.nav.app },
+    { href: "#companies", label: dict.nav.companies },
     { href: "#branches", label: dict.nav.branches },
     { href: "#franchise", label: dict.nav.franchise },
     { href: "#contact", label: dict.nav.contact },
@@ -38,20 +39,15 @@ export default function Navbar() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
-        <Link href="#home" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden bg-brand-gradient p-1.5 glow-ring">
-            <Image
-              src="/ar/images/Logo1.png"
-              alt="Ashafaq"
-              width={64}
-              height={64}
-              className="w-full h-full object-contain"
-              priority
-            />
-          </div>
-          <span className="hidden sm:block text-sm font-semibold tracking-wide text-white/90 group-hover:text-white">
-            {dict.footer.brand}
-          </span>
+        <Link href="#home" className="flex items-center gap-3 group" aria-label={dict.footer.brand}>
+          <Image
+            src="/images/Logo_white.png"
+            alt={dict.footer.brand}
+            width={500}
+            height={268}
+            priority
+            className="h-9 sm:h-11 w-auto object-contain group-hover:opacity-90 transition-opacity"
+          />
         </Link>
 
         <ul className="hidden lg:flex items-center gap-1">
