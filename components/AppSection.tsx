@@ -6,13 +6,13 @@ import { useLang } from "./LanguageProvider";
 import { APP_LINKS } from "@/lib/branches";
 
 const SCREENS = [
-  "/ar/images/ashafaq_home.jpg",
-  "/ar/images/ashafaq_create_order.jpg",
-  "/ar/images/ashafaq_map.jpg",
-  "/ar/images/ashafaq_orders.jpg",
-  "/ar/images/ashafaq_summary_booking.jpg",
-  "/ar/images/ashafaq_wallet.jpg",
-  "/ar/images/ashafaq_addons.jpg",
+  "/images/ashafaq_home.jpg",
+  "/images/ashafaq_create_order.jpg",
+  "/images/ashafaq_map.jpg",
+  "/images/ashafaq_orders.jpg",
+  "/images/ashafaq_summary_booking.jpg",
+  "/images/ashafaq_wallet.jpg",
+  "/images/ashafaq_addons.jpg",
 ];
 
 function PhoneFrame({

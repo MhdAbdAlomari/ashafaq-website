@@ -25,7 +25,7 @@ export default function Why() {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 shrink-0 rounded-2xl bg-brand-gradient p-3">
                 <Image
-                  src="/ar/images/Logo1.png"
+                  src="/images/Logo1.png"
                   alt="Ashafaq"
                   width={110}
                   height={110}

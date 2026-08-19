@@ -173,7 +173,7 @@ export default function Hero() {
               <div className="flex items-center gap-3 min-w-0">
                 <div className="w-12 h-12 shrink-0 rounded-2xl bg-brand-gradient p-2 grid place-items-center">
                   <Image
-                    src="/ar/images/Logo1.png"
+                    src="/images/Logo1.png"
                     alt="Ashafaq"
                     width={48}
                     height={48}
@@ -195,7 +195,7 @@ export default function Hero() {
 
             <div className="mt-6 relative aspect-[9/12] rounded-2xl overflow-hidden border border-white/10 float-y">
               <Image
-                src="/ar/images/ashafaq_home.jpg"
+                src="/images/ashafaq_home.jpg"
                 alt="Ashafaq App Home"
                 fill
                 sizes="(min-width: 1024px) 28rem, 90vw"
