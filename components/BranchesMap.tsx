@@ -23,11 +23,11 @@ const customIcon = L.divIcon({
     <svg width="36" height="46" viewBox="0 0 36 46" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#1B1F52"/>
-          <stop offset="100%" stop-color="#2E93B9"/>
+          <stop offset="0%" stop-color="#0B1F3A"/>
+          <stop offset="100%" stop-color="#1F5EFF"/>
         </linearGradient>
       </defs>
-      <path d="M18 0C8.06 0 0 8.06 0 18c0 13 18 28 18 28s18-15 18-28C36 8.06 27.94 0 18 0z" fill="url(#grad)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <path d="M18 0C8.06 0 0 8.06 0 18c0 13 18 28 18 28s18-15 18-28C36 8.06 27.94 0 18 0z" fill="url(#grad)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
       <circle cx="18" cy="18" r="6" fill="#fff"/>
     </svg>
   `,
@@ -55,13 +55,20 @@ export default function BranchesMap({
   ariaLabel,
   openLabel,
   locale,
+  branches,
+  singleView = false,
 }: {
   focusId: string | null;
   onMarkerClick: (id: string) => void;
   ariaLabel: string;
   openLabel: string;
   locale: "ar" | "en";
+  /** Optional filtered set of branches to render. Defaults to all branches. */
+  branches?: Branch[];
+  /** When true, zoom in on a single branch instead of fitting all-Riyadh bounds. */
+  singleView?: boolean;
 }) {
+  const items = branches ?? BRANCHES;
   const markersRef = useRef<Record<string, L.Marker | null>>({});
 
   useEffect(() => {
@@ -72,29 +79,37 @@ export default function BranchesMap({
 
   const bounds = useMemo(
     () =>
-      L.latLngBounds(BRANCHES.map((b) => [b.lat, b.lng] as [number, number])),
-    []
+      items.length > 1
+        ? L.latLngBounds(items.map((b) => [b.lat, b.lng] as [number, number]))
+        : undefined,
+    [items]
   );
+
+  const center: [number, number] =
+    singleView && items.length === 1
+      ? [items[0].lat, items[0].lng]
+      : RIYADH_CENTER;
+  const zoom = singleView && items.length === 1 ? 15 : 11;
 
   return (
     <div
-      className="relative h-[480px] sm:h-[560px] rounded-3xl overflow-hidden glow-ring"
+      className="relative h-[480px] sm:h-[560px] rounded-3xl overflow-hidden border border-[#E6EAF2] shadow-[0_10px_30px_-15px_rgba(11,31,58,0.15)]"
       role="region"
       aria-label={ariaLabel}
     >
       <MapContainer
-        center={RIYADH_CENTER}
-        zoom={11}
+        center={center}
+        zoom={zoom}
         bounds={bounds}
         scrollWheelZoom={false}
         className="w-full h-full"
-        style={{ background: "#0b1030" }}
+        style={{ background: "#EAF1FF" }}
       >
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
         />
-        {BRANCHES.map((b) => (
+        {items.map((b) => (
           <Marker
             key={b.id}
             position={[b.lat, b.lng]}
@@ -116,7 +131,7 @@ export default function BranchesMap({
                   href={b.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-block text-xs font-semibold text-[#7fcfe8] hover:text-white"
+                  className="mt-3 inline-block text-xs font-semibold text-[#1F5EFF] hover:text-[#1A50DA]"
                 >
                   {openLabel} →
                 </a>
@@ -124,7 +139,7 @@ export default function BranchesMap({
             </Popup>
           </Marker>
         ))}
-        <FocusController focusId={focusId} branches={BRANCHES} />
+        <FocusController focusId={focusId} branches={items} />
       </MapContainer>
     </div>
   );
