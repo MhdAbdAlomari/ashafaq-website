@@ -1,15 +1,29 @@
 export type Branch = {
   id: string;
+  /** Kebab-case latin slug used in URLs (/branches/[slug]/). Mirrors `id` today but kept as a distinct field so URL routing can diverge from internal IDs later without breaking data references. */
+  slug: string;
   nameAr: string;
   nameEn: string;
   lat: number;
   lng: number;
+  /** Existing google.com/maps place URL (already stored per branch). */
   mapsUrl: string;
+  /** Optional: real operating hours. Do NOT invent — leave undefined if unknown. */
+  hours?: string;
+  /** Optional: which service tiers this branch offers. Omit to fall back to the standard tier list on /services/. */
+  servicesAvailable?: string[];
+  /** Optional: path under public/images for a branch-specific photo. Leave undefined to use the site-wide fallback. */
+  photoSrc?: string;
+  /** Optional: direct URL to this branch's Google reviews. Leave undefined; render only when populated. */
+  googleReviewsUrl?: string;
+  /** Optional: prefer this Google Maps URL for the "Open directions" button. If undefined, a directions URL is derived from lat/lng at render time. */
+  googleMapsUrl?: string;
 };
 
 export const BRANCHES: Branch[] = [
   {
     id: "al-nahdah",
+    slug: "al-nahdah",
     nameAr: "فرع النهضة",
     nameEn: "Al Nahdah Branch",
     lat: 24.7595898,
@@ -19,6 +33,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-aziziyah",
+    slug: "al-aziziyah",
     nameAr: "فرع العزيزية",
     nameEn: "Al Aziziyah Branch",
     lat: 24.596211000247703,
@@ -28,6 +43,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-nadwah",
+    slug: "al-nadwah",
     nameAr: "فرع الندوة",
     nameEn: "Al Nadwah Branch",
     lat: 24.80126398855043,
@@ -37,6 +53,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-munsiyah",
+    slug: "al-munsiyah",
     nameAr: "فرع المونسية",
     nameEn: "Al Munsiyah Branch",
     lat: 24.728818530100067,
@@ -46,6 +63,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-manar",
+    slug: "al-manar",
     nameAr: "فرع المنار",
     nameEn: "Al Manar Branch",
     lat: 24.71562360773457,
@@ -55,6 +73,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-fayha",
+    slug: "al-fayha",
     nameAr: "فرع الفيحاء",
     nameEn: "Al Fayha Branch",
     lat: 24.67279714075207,
@@ -64,6 +83,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-uraija",
+    slug: "al-uraija",
     nameAr: "فرع العريجاء",
     nameEn: "Al Uraija Branch",
     lat: 24.583414692971363,
@@ -73,6 +93,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-shifa",
+    slug: "al-shifa",
     nameAr: "فرع الشفا",
     nameEn: "Al Shifa Branch",
     lat: 24.547537943461947,
@@ -82,6 +103,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "dar-al-baida",
+    slug: "dar-al-baida",
     nameAr: "فرع الدار البيضاء",
     nameEn: "Dar Al Baida Branch",
     lat: 24.5587868,
@@ -91,6 +113,7 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "al-badiah",
+    slug: "al-badiah",
     nameAr: "فرع البديعة",
     nameEn: "Al Badiah Branch",
     lat: 24.58254393681625,
@@ -99,6 +122,21 @@ export const BRANCHES: Branch[] = [
       "https://www.google.com/maps?q=24.58254393681625,46.63347601890564",
   },
 ];
+
+/** Look up a branch by its URL slug. */
+export function getBranchBySlug(slug: string): Branch | undefined {
+  return BRANCHES.find((b) => b.slug === slug);
+}
+
+/**
+ * Compose a Google Maps directions URL from coordinates. Used by branch pages
+ * when a branch doesn't have an explicit `googleMapsUrl` for the "Open
+ * directions" button.
+ */
+export function buildDirectionsUrl(b: Pick<Branch, "lat" | "lng" | "googleMapsUrl">): string {
+  if (b.googleMapsUrl) return b.googleMapsUrl;
+  return `https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lng}`;
+}
 
 export const APP_LINKS = {
   ios: "https://apps.apple.com/sa/app/ashafaq-%D8%A7%D9%84%D8%B4%D9%81%D9%82-%D9%84%D8%BA%D8%B3%D9%8A%D9%84-%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA/id6748883105",
