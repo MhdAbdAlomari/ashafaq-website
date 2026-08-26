@@ -1,21 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useLang } from "./LanguageProvider";
-import { SOCIAL_LINKS } from "@/lib/branches";
+import { SOCIAL_LINKS, APP_LINKS } from "@/lib/branches";
 import { CONTACT } from "@/lib/i18n";
 
 export default function Footer() {
   const { dict } = useLang();
   const year = new Date().getFullYear();
-  const links = [
-    { href: "#services", label: dict.nav.services },
-    { href: "#app", label: dict.nav.app },
-    { href: "#companies", label: dict.nav.companies },
-    { href: "#branches", label: dict.nav.branches },
-    { href: "#franchise", label: dict.nav.franchise },
-    { href: "#contact", label: dict.nav.contact },
-  ];
+
   const socials: { name: string; href: string }[] = [
     { name: "X", href: SOCIAL_LINKS.x },
     { name: "Instagram", href: SOCIAL_LINKS.instagram },
@@ -25,66 +19,100 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/5 bg-[#05061a]">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        <div>
-          <div className="flex items-center gap-3">
-            <Image
-              src="/images/Logo_white.png"
-              alt={dict.footer.brand}
-              width={500}
-              height={268}
-              className="h-11 w-auto object-contain"
-            />
-          </div>
-          <p className="mt-4 text-sm text-white/55 leading-relaxed">
+    <footer className="relative bg-[#0B1F3A] text-white">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
+        {/* Brand column */}
+        <div className="lg:col-span-2">
+          <Image
+            src="/images/Logo_white.png"
+            alt={dict.footer.brand}
+            width={500}
+            height={268}
+            className="h-11 w-auto object-contain"
+          />
+          <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-sm">
             {dict.footer.tagline}
           </p>
-        </div>
-
-        <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-white/40">
-            {dict.footer.quickLinks}
-          </div>
-          <ul className="mt-4 space-y-2">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="text-sm text-white/70 hover:text-white"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-white/40">
-            {dict.footer.followUs}
-          </div>
-          <ul className="mt-4 space-y-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             {socials.map((s) => (
-              <li key={s.name}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-white/70 hover:text-white"
-                >
-                  {s.name}
-                </a>
-              </li>
+              <a
+                key={s.name}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold px-3 h-8 inline-flex items-center rounded-full bg-white/10 text-white/85 hover:bg-white/20 transition-colors"
+              >
+                {s.name}
+              </a>
             ))}
+          </div>
+        </div>
+
+        {/* Services column */}
+        <div>
+          <div className="text-xs uppercase tracking-[0.25em] text-white/55">
+            {dict.footer.columns.services}
+          </div>
+          <ul className="mt-4 space-y-2">
+            <li>
+              <Link href="/services/" className="text-sm text-white/75 hover:text-white">
+                {dict.nav.services}
+              </Link>
+            </li>
+            <li>
+              <Link href="/prices/" className="text-sm text-white/75 hover:text-white">
+                {dict.nav.prices}
+              </Link>
+            </li>
+            <li>
+              <Link href="/mobile-wash/" className="text-sm text-white/75 hover:text-white">
+                {dict.nav.mobileWash}
+              </Link>
+            </li>
           </ul>
         </div>
 
+        {/* Fleet column */}
         <div>
-          <div className="text-xs uppercase tracking-[0.25em] text-white/40">
-            {dict.footer.contact}
+          <div className="text-xs uppercase tracking-[0.25em] text-white/55">
+            {dict.footer.columns.fleet}
+          </div>
+          <ul className="mt-4 space-y-2">
+            <li>
+              <Link href="/fleet/" className="text-sm text-white/75 hover:text-white">
+                {dict.nav.fleet}
+              </Link>
+            </li>
+          </ul>
+
+          <div className="mt-6 text-xs uppercase tracking-[0.25em] text-white/55">
+            {dict.footer.columns.blog}
+          </div>
+          <ul className="mt-4 space-y-2">
+            <li>
+              <Link href="/blog/" className="text-sm text-white/75 hover:text-white">
+                {dict.nav.blog}
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Support column */}
+        <div>
+          <div className="text-xs uppercase tracking-[0.25em] text-white/55">
+            {dict.footer.columns.support}
           </div>
           <ul className="mt-4 space-y-3 text-sm">
+            <li>
+              <Link href="/faq/" className="text-white/75 hover:text-white">
+                {dict.nav.faq}
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact/" className="text-white/75 hover:text-white">
+                {dict.nav.contact}
+              </Link>
+            </li>
             <li>
               <a
                 href={CONTACT.mailto}
@@ -125,8 +153,39 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40 text-center sm:text-start">
+      {/* App store badges */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+          <a
+            href={APP_LINKS.ios}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 h-12 px-5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 transition-colors"
+          >
+            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white"><path d="M17.05 12.04c-.03-2.95 2.41-4.36 2.52-4.43-1.38-2.01-3.52-2.29-4.28-2.32-1.82-.18-3.55 1.07-4.47 1.07-.93 0-2.35-1.04-3.86-1.01-1.98.03-3.81 1.16-4.83 2.93-2.06 3.57-.53 8.85 1.48 11.75.98 1.42 2.15 3.01 3.66 2.95 1.47-.06 2.03-.95 3.81-.95 1.78 0 2.27.95 3.82.92 1.58-.03 2.58-1.44 3.55-2.87 1.12-1.64 1.58-3.23 1.61-3.31-.04-.02-3.08-1.18-3.11-4.67zM14.16 3.42c.82-1 1.38-2.39 1.22-3.78-1.18.05-2.61.79-3.46 1.78-.76.87-1.43 2.27-1.25 3.62 1.32.1 2.66-.67 3.49-1.62z"/></svg>
+            <div className="text-start leading-tight">
+              <div className="text-[10px] text-white/60">{dict.app.iosTop}</div>
+              <div className="text-xs font-bold">{dict.app.iosBottom}</div>
+            </div>
+          </a>
+          <a
+            href={APP_LINKS.android}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 h-12 px-5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 transition-colors"
+          >
+            <svg viewBox="0 0 24 24" className="w-6 h-6"><path fill="#34A853" d="M3.6 20.5l9.2-9.2-3.1-3.1L3 16.9c-.1 1.3.1 2.6.6 3.6z"/><path fill="#FBBC04" d="M19.9 11.4l-3.4-2-3.4 3.4 3.4 3.4 3.4-2c1.2-.7 1.2-2.1 0-2.8z"/><path fill="#4285F4" d="M3.6 3.5c-.5 1-.7 2.3-.6 3.6l6.7 8.7L13 12.8 3.6 3.5z"/><path fill="#EA4335" d="M12.8 11.3l3.7-3.7L7.3 2.4c-1-.5-2.2-.7-3.3-.3-.2.1-.3.1-.4.2l9.2 9z"/></svg>
+            <div className="text-start leading-tight">
+              <div className="text-[10px] text-white/60">{dict.app.androidTop}</div>
+              <div className="text-xs font-bold">{dict.app.androidBottom}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      {/* Copyright row */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50 text-center sm:text-start">
           <div>
             © {year} {dict.footer.brand}. {dict.footer.rights}.
           </div>
