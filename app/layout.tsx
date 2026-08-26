@@ -3,6 +3,8 @@ import { Cairo, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -78,27 +80,35 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/images/Logo1.png",
-    apple: "/images/Logo1.png",
-  },
   category: "business",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1B1F52",
+  themeColor: "#0B1F3A",
   width: "device-width",
   initialScale: 1,
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: "Ashafaq Car Wash",
+      alternateName: "الشفق لغسيل السيارات",
+      inLanguage: ["ar", "en"],
+      publisher: { "@id": `${SITE_URL}/#business` },
+    },
+    {
   "@type": "LocalBusiness",
+  "@id": `${SITE_URL}/#business`,
   name: "Ashafaq Car Wash",
   alternateName: "الشفق لغسيل السيارات",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/Logo1.png`,
-  image: `${SITE_URL}/images/Logo1.png`,
+  logo: `${SITE_URL}/images/Logo_white.png`,
+  image: `${SITE_URL}/images/Logo_white.png`,
   description:
     "Leading Saudi car wash brand offering professional hand washing, detailing, polishing, and mobile car wash service across Riyadh.",
   foundingDate: "2017",
@@ -139,6 +149,8 @@ const jsonLd = {
         "https://play.google.com/store/apps/details?id=com.ashafaq.wash",
     },
   ],
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -146,14 +158,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-[#070819] text-white antialiased font-sans selection:bg-[#2E93B9]/40 selection:text-white">
+      <body className="min-h-screen bg-white text-[#111827] antialiased font-sans">
         <Script
           id="ld-json-localbusiness"
           type="application/ld+json"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <Navbar />
+          <main className="relative overflow-x-clip">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

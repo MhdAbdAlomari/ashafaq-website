@@ -1,33 +1,31 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Trust from "@/components/Trust";
-import Services from "@/components/Services";
-import AppSection from "@/components/AppSection";
-import Companies from "@/components/Companies";
-import Branches from "@/components/Branches";
 import Why from "@/components/Why";
+import Testimonials from "@/components/Testimonials";
 import Franchise from "@/components/Franchise";
-import Social from "@/components/Social";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import {
+  ServicesTeaser,
+  PricesTeaser,
+  AppTeaser,
+  FleetTeaser,
+  BranchesTeaser,
+  QuickContactStrip,
+} from "@/components/HomeTeasers";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main className="relative overflow-x-clip">
-        <Hero />
-        <Trust />
-        <Services />
-        <AppSection />
-        <Companies />
-        <Branches />
-        <Why />
-        <Franchise />
-        <Social />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <Trust />
+      <ServicesTeaser />
+      <PricesTeaser />
+      <AppTeaser />
+      <FleetTeaser />
+      <BranchesTeaser />
+      <Why />
+      <Testimonials />
+      <Franchise />
+      <QuickContactStrip />
     </>
   );
 }
