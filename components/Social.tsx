@@ -50,7 +50,7 @@ const SOCIALS = [
 export default function Social() {
   const { dict } = useLang();
   return (
-    <section className="relative py-20 sm:py-24 lg:py-28">
+    <section className="relative py-24 sm:py-28 lg:py-32 bg-[#F5F7FA]">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -59,15 +59,15 @@ export default function Social() {
           transition={{ duration: 0.7 }}
           className="text-center max-w-xl mx-auto"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gradient leading-[1.2] pb-1">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0B1F3A] leading-[1.2] pb-1">
             {dict.social.title}
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-white/60">
+          <p className="mt-4 text-sm sm:text-base text-[#667085]">
             {dict.social.subtitle}
           </p>
         </motion.div>
 
-        <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
           {SOCIALS.map((s, i) => (
             <motion.a
               key={s.name}
@@ -78,18 +78,15 @@ export default function Social() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative rounded-2xl glass p-6 text-center overflow-hidden hover:-translate-y-1.5 transition-all duration-500"
+              className="group relative rounded-2xl card p-6 text-center hover:-translate-y-1.5 hover:border-[#DDE7FF] transition-all duration-300"
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${s.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
-              />
               <div className="relative flex flex-col items-center gap-3">
                 <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} grid place-items-center text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500`}
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} grid place-items-center text-white shadow-md group-hover:scale-105 transition-transform duration-300`}
                 >
                   {s.icon}
                 </div>
-                <span className="text-sm font-semibold text-white/85">
+                <span className="text-sm font-semibold text-[#0B1F3A]">
                   {s.name}
                 </span>
               </div>

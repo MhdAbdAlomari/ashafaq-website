@@ -17,8 +17,7 @@ const ICONS = [
 export default function Services() {
   const { dict } = useLang();
   return (
-    <section id="services" className="relative py-20 sm:py-28 lg:py-32">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    <section id="services" className="relative py-24 sm:py-28 lg:py-36 bg-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -27,18 +26,18 @@ export default function Services() {
           transition={{ duration: 0.7 }}
           className="text-center max-w-2xl mx-auto"
         >
-          <span className="text-xs font-semibold tracking-[0.3em] text-[#2E93B9] uppercase">
+          <span className="eyebrow">
             {dict.nav.services}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gradient leading-[1.2] pb-1">
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0B1F3A] leading-[1.2] pb-1">
             {dict.services.title}
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-white/60">
+          <p className="mt-4 text-sm sm:text-base text-[#667085]">
             {dict.services.subtitle}
           </p>
         </motion.div>
 
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {dict.services.items.map((s, i) => (
             <motion.article
               key={i}
@@ -46,26 +45,17 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.55, delay: (i % 4) * 0.08 }}
-              className="group relative rounded-3xl glass p-7 sm:p-8 overflow-hidden hover:-translate-y-1.5 transition-all duration-500"
+              className="group relative rounded-3xl card p-7 sm:p-8 overflow-hidden hover:-translate-y-1.5 hover:border-[#DDE7FF] transition-all duration-300"
             >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-brand-gradient-soft" />
-              <div className="absolute -top-24 -end-24 w-56 h-56 rounded-full bg-brand-gradient opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-500" />
-
               <div className="relative">
-                <div className="w-14 h-14 rounded-2xl bg-brand-gradient grid place-items-center text-white shadow-lg shadow-[#2E93B9]/25 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-[#EAF1FF] grid place-items-center text-[#1F5EFF] group-hover:bg-[#1F5EFF] group-hover:text-white transition-colors duration-300">
                   <span className="w-7 h-7 block">{ICONS[i % ICONS.length]}</span>
                 </div>
-                <h3 className="mt-6 text-xl font-bold text-white">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/65">
+                <h3 className="mt-6 text-xl font-bold text-[#0B1F3A]">{s.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#667085]">
                   {s.desc}
                 </p>
-
-                <div className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#7fcfe8] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 rtl:translate-x-2 rtl:group-hover:translate-x-0 transition-all duration-500">
-                  <span>→</span>
-                </div>
               </div>
-
-              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#2E93B9]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.article>
           ))}
         </div>
