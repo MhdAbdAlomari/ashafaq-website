@@ -5,6 +5,8 @@ import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { BRANCH_COUNT, BRANCHES, UNIFIED_CONTACT } from "@/lib/branches";
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -27,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | الشفق لغسيل السيارات",
   },
   description:
-    "الشفق لغسيل السيارات: غسيل احترافي، تلميع، وخدمة متنقلة في الرياض. أكثر من 11 فرع. جودة موثوقة وخدمة احترافية. حمّل التطبيق واحجز الآن.",
+    `الشفق لغسيل السيارات: غسيل احترافي، تلميع، وخدمة متنقلة في الرياض. أكثر من ${BRANCH_COUNT} فرع. جودة موثوقة وخدمة احترافية. حمّل التطبيق واحجز الآن.`,
   keywords: [
     "غسيل سيارات الرياض",
     "غسيل سيارات متنقل",
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Ashafaq Car Wash",
     title: "الشفق لغسيل السيارات | Ashafaq Car Wash",
     description:
-      "غسيل سيارات احترافي في الرياض — أكثر من 11 فرع وخدمة غسيل متنقلة. جودة موثوقة وخدمة احترافية.",
+      `غسيل سيارات احترافي في الرياض — أكثر من ${BRANCH_COUNT} فرع وخدمة غسيل متنقلة. جودة موثوقة وخدمة احترافية.`,
     images: [
       {
         url: "/images/Logo1.png",
@@ -102,18 +104,18 @@ const jsonLd = {
       publisher: { "@id": `${SITE_URL}/#business` },
     },
     {
-  "@type": "LocalBusiness",
+  "@type": "Organization",
   "@id": `${SITE_URL}/#business`,
   name: "Ashafaq Car Wash",
-  alternateName: "الشفق لغسيل السيارات",
+  alternateName: "مغاسل الشفق للسيارات",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/Logo_white.png`,
-  image: `${SITE_URL}/images/Logo_white.png`,
+  logo: `${SITE_URL}/icon.png`,
+  image: `${SITE_URL}/icon.png`,
   description:
     "Leading Saudi car wash brand offering professional hand washing, detailing, polishing, and mobile car wash service across Riyadh.",
   foundingDate: "2017",
   email: "ashafaq.wash@gmail.com",
-  telephone: "+966114787878",
+  telephone: UNIFIED_CONTACT.telephoneE164,
   areaServed: { "@type": "City", name: "Riyadh" },
   address: {
     "@type": "PostalAddress",
@@ -123,7 +125,7 @@ const jsonLd = {
   contactPoint: [
     {
       "@type": "ContactPoint",
-      telephone: "+966114787878",
+      telephone: UNIFIED_CONTACT.telephoneE164,
       email: "ashafaq.wash@gmail.com",
       contactType: "customer service",
       areaServed: "SA",
@@ -149,6 +151,26 @@ const jsonLd = {
         "https://play.google.com/store/apps/details?id=com.ashafaq.wash",
     },
   ],
+  // Each branch is a real physical location; reference their @ids so per-
+  // branch AutoWash nodes (rendered on /branches/[slug]/) link back here.
+  department: BRANCHES.map((b) => ({
+    "@type": "AutoWash",
+    "@id": `${SITE_URL}/branches/${b.slug}/#business`,
+    name: b.nameAr,
+    url: `${SITE_URL}/branches/${b.slug}/`,
+    telephone: UNIFIED_CONTACT.telephoneE164,
+    openingHours: b.hours,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: b.lat,
+      longitude: b.lng,
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Riyadh",
+      addressCountry: "SA",
+    },
+  })),
     },
   ],
 };
@@ -165,6 +187,7 @@ export default function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <GoogleAnalytics />
         <LanguageProvider>
           <Navbar />
           <main className="relative overflow-x-clip">{children}</main>
