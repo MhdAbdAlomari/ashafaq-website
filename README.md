@@ -24,7 +24,7 @@ npm run build     # produces the static site in out/
 npm run lint      # eslint
 ```
 
-Requires **Node ≥ 18.18** (pinned in `package.json` engines).
+Requires **Node ≥ 22** (pinned in `package.json` engines). Node 20 reached EOL on 2026-04-30; Node 22 is in LTS Maintenance (supported until 2027-04) and Node 24 is the current Active LTS.
 
 ## Deployment (cPanel static hosting)
 
