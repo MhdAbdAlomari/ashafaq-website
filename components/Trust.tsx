@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
+import { withBranchCount } from "@/lib/i18n";
 
 export default function Trust() {
   const { dict } = useLang();
@@ -34,7 +35,7 @@ export default function Trust() {
               className="group relative rounded-2xl card p-6 sm:p-7 text-center hover:-translate-y-1 transition-transform"
             >
               <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1F5EFF] leading-none">
-                {s.value}
+                {withBranchCount(s.value)}
               </div>
               <div className="mt-3 text-[11px] sm:text-xs lg:text-sm text-[#667085] leading-snug">
                 {s.label}

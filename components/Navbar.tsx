@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useLang } from "./LanguageProvider";
+import { trackEvent } from "@/lib/analytics";
 
 type NavLeaf = { href: string; label: string };
 type NavGroup = { label: string; children: NavLeaf[] };
@@ -169,6 +170,7 @@ export default function Navbar() {
           </button>
           <Link
             href="/contact/"
+            onClick={() => trackEvent("booking_click", { source: "navbar_desktop" })}
             className="hidden sm:inline-flex items-center h-9 px-5 text-sm font-semibold rounded-full bg-[#1F5EFF] text-white shine hover:bg-[#1A50DA] transition-colors shadow-[0_6px_16px_-6px_rgba(31,94,255,0.45)]"
           >
             {dict.nav.bookNow}
@@ -244,7 +246,7 @@ export default function Navbar() {
                               <Link
                                 href={leaf.href}
                                 onClick={handleMobileClick}
-                                className="block px-4 py-2.5 text-sm font-medium text-[#0B1F3A]/85 rounded-xl hover:bg-[#EAF1FF] active:bg-[#DDE7FF] touch-manipulation"
+                                className="block px-4 py-2.5 text-[15px] font-medium text-[#0B1F3A]/85 rounded-xl hover:bg-[#EAF1FF] active:bg-[#DDE7FF] touch-manipulation"
                               >
                                 {leaf.label}
                               </Link>
@@ -269,7 +271,10 @@ export default function Navbar() {
               <li className="pt-2">
                 <Link
                   href="/contact/"
-                  onClick={handleMobileClick}
+                  onClick={() => {
+                    trackEvent("booking_click", { source: "navbar_mobile" });
+                    handleMobileClick();
+                  }}
                   className="block w-full text-center px-4 py-3 text-base font-bold rounded-xl bg-[#1F5EFF] text-white hover:bg-[#1A50DA] transition-colors"
                 >
                   {dict.nav.bookNow}

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLang } from "./LanguageProvider";
+import { BRANCH_COUNT_DISPLAY } from "@/lib/branches";
 
 export default function Why() {
   const { dict } = useLang();
@@ -20,7 +21,7 @@ export default function Why() {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 shrink-0 rounded-2xl bg-[#EAF1FF] p-3">
                 <Image
-                  src="/images/Logo1.png"
+                  src="/images/Logo11.png"
                   alt="Ashafaq"
                   width={110}
                   height={110}
@@ -38,7 +39,7 @@ export default function Why() {
             <div className="mt-8 grid grid-cols-3 gap-3">
               {[
                 { v: "2017", l: dict.common.foundedShort },
-                { v: "11+", l: dict.common.branchesShort },
+                { v: BRANCH_COUNT_DISPLAY, l: dict.common.branchesShort },
                 { v: "★", l: dict.common.onSiteShort },
               ].map((s, i) => (
                 <div key={i} className="rounded-2xl bg-[#F5F7FA] border border-[#E6EAF2] p-4 text-center">
