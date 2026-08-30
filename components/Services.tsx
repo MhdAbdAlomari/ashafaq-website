@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
+import { withBranchCount } from "@/lib/i18n";
 
 const ICONS = [
   // Hand washing
@@ -53,7 +54,7 @@ export default function Services() {
                 </div>
                 <h3 className="mt-6 text-xl font-bold text-[#0B1F3A]">{s.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-[#667085]">
-                  {s.desc}
+                  {withBranchCount(s.desc)}
                 </p>
               </div>
             </motion.article>

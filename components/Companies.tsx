@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
 import { CONTACT } from "@/lib/i18n";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Companies({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   const { dict } = useLang();
@@ -165,6 +166,10 @@ export default function Companies({ hideHeader = false }: { hideHeader?: boolean
               href={CONTACT.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackEvent("whatsapp_click", { source: "fleet_cta" });
+                trackEvent("fleet_quote_request", { channel: "whatsapp" });
+              }}
               className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-[#25D366] text-white font-bold text-sm hover:bg-[#1FBA57] transition-colors"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -172,13 +177,24 @@ export default function Companies({ hideHeader = false }: { hideHeader?: boolean
               </svg>
               {c.ctaWhatsapp} {CONTACT.phone}
             </a>
-            <a href={CONTACT.tel} className="btn-primary text-sm">
+            <a
+              href={CONTACT.tel}
+              onClick={() => {
+                trackEvent("phone_call_click", { source: "fleet_cta" });
+                trackEvent("fleet_quote_request", { channel: "phone" });
+              }}
+              className="btn-primary text-sm"
+            >
               <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.92z" />
               </svg>
               {c.ctaCall} <span dir="ltr">{CONTACT.phone}</span>
             </a>
-            <a href={CONTACT.mailto} className="btn-secondary text-sm">
+            <a
+              href={CONTACT.mailto}
+              onClick={() => trackEvent("fleet_quote_request", { channel: "email" })}
+              className="btn-secondary text-sm"
+            >
               <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="5" width="18" height="14" rx="2" />
                 <path d="M3 7l9 6 9-6" />

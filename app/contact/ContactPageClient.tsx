@@ -102,7 +102,12 @@ export default function ContactPageClient() {
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
+            <p className="mt-6 text-xs text-[#667085] leading-relaxed bg-[#F5F7FA] border border-[#E6EAF2] rounded-xl px-4 py-3">
+              <span aria-hidden className="me-1.5 text-[#1F5EFF]">ℹ</span>
+              {c.deliveryNote}
+            </p>
+
+            <div className="mt-4 flex flex-wrap gap-3">
               <button type="submit" className="btn-primary text-sm">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                   <path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.4.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.3 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.5s1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4 0-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z" />
