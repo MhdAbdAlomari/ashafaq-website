@@ -55,17 +55,17 @@ export default function Footer() {
           </div>
           <ul className="mt-4 space-y-2">
             <li>
-              <Link href="/services/" className="text-sm text-white/75 hover:text-white">
+              <Link href="/services/" className="text-[15px] sm:text-sm text-white/75 hover:text-white">
                 {dict.nav.services}
               </Link>
             </li>
             <li>
-              <Link href="/prices/" className="text-sm text-white/75 hover:text-white">
+              <Link href="/prices/" className="text-[15px] sm:text-sm text-white/75 hover:text-white">
                 {dict.nav.prices}
               </Link>
             </li>
             <li>
-              <Link href="/mobile-wash/" className="text-sm text-white/75 hover:text-white">
+              <Link href="/mobile-wash/" className="text-[15px] sm:text-sm text-white/75 hover:text-white">
                 {dict.nav.mobileWash}
               </Link>
             </li>
@@ -79,7 +79,7 @@ export default function Footer() {
           </div>
           <ul className="mt-4 space-y-2">
             <li>
-              <Link href="/fleet/" className="text-sm text-white/75 hover:text-white">
+              <Link href="/fleet/" className="text-[15px] sm:text-sm text-white/75 hover:text-white">
                 {dict.nav.fleet}
               </Link>
             </li>
@@ -90,7 +90,7 @@ export default function Footer() {
           </div>
           <ul className="mt-4 space-y-2">
             <li>
-              <Link href="/blog/" className="text-sm text-white/75 hover:text-white">
+              <Link href="/blog/" className="text-[15px] sm:text-sm text-white/75 hover:text-white">
                 {dict.nav.blog}
               </Link>
             </li>
@@ -102,7 +102,7 @@ export default function Footer() {
           <div className="text-xs uppercase tracking-[0.25em] text-white/55">
             {dict.footer.columns.support}
           </div>
-          <ul className="mt-4 space-y-3 text-sm">
+          <ul className="mt-4 space-y-3 text-[15px] sm:text-sm">
             <li>
               <Link href="/faq/" className="text-white/75 hover:text-white">
                 {dict.nav.faq}
@@ -111,6 +111,11 @@ export default function Footer() {
             <li>
               <Link href="/contact/" className="text-white/75 hover:text-white">
                 {dict.nav.contact}
+              </Link>
+            </li>
+            <li>
+              <Link href="/franchise/" className="text-white/75 hover:text-white">
+                {dict.nav.franchise}
               </Link>
             </li>
             <li>
@@ -185,7 +190,7 @@ export default function Footer() {
 
       {/* Copyright row */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50 text-center sm:text-start">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] sm:text-xs text-white/60 text-center sm:text-start">
           <div>
             © {year} {dict.footer.brand}. {dict.footer.rights}.
           </div>

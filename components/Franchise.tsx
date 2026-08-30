@@ -34,7 +34,7 @@ export default function Franchise() {
               </p>
 
               <Link
-                href="/contact/"
+                href="/franchise/"
                 className="mt-8 shine inline-flex items-center gap-2 h-14 px-8 rounded-full bg-[#1F5EFF] text-white font-bold hover:bg-[#1A50DA] transition-colors shadow-[0_10px_24px_-8px_rgba(31,94,255,0.55)]"
               >
                 {dict.franchise.cta}

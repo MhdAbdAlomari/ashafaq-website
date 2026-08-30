@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Banner from "@/components/Banner";
 import Trust from "@/components/Trust";
 import Why from "@/components/Why";
 import Testimonials from "@/components/Testimonials";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Banner />
       <Trust />
       <ServicesTeaser />
       <PricesTeaser />
@@ -23,7 +25,7 @@ export default function Home() {
       <FleetTeaser />
       <BranchesTeaser />
       <Why />
-      <Testimonials />
+      <Testimonials preview />
       <Franchise />
       <QuickContactStrip />
     </>
