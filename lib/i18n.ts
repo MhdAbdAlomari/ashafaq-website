@@ -1,13 +1,31 @@
+import { BRANCH_COUNT, RAW_PHONE_LOCAL, RAW_PHONE_INTL } from "./branches";
+
 export type Locale = "ar" | "en";
 
+/**
+ * Replace {count} placeholders in i18n strings with the live branch count
+ * from lib/branches.ts. Use anywhere an i18n string contains "{count}" —
+ * e.g. `withBranchCount(dict.hero.subheadline)`.
+ */
+export function withBranchCount(s: string): string {
+  return s.replace(/\{count\}/g, String(BRANCH_COUNT));
+}
+
+const EMAIL = "ashafaq.wash@gmail.com";
+
+/**
+ * Site-wide contact details. All phone-based fields derive from
+ * RAW_PHONE_LOCAL / RAW_PHONE_INTL in lib/branches.ts — the single source of
+ * the phone digits. Edit the raw constant there, not here.
+ */
 export const CONTACT = {
-  email: "ashafaq.wash@gmail.com",
-  phone: "0114787878",
-  phoneE164: "0114787878",
-  whatsapp: "https://wa.me/966114787878",
-  whatsappDisplay: "+966114787878",
-  mailto: "mailto:ashafaq.wash@gmail.com",
-  tel: "tel:0114787878",
+  email: EMAIL,
+  phone: RAW_PHONE_LOCAL,
+  phoneE164: `+${RAW_PHONE_INTL}`,
+  whatsapp: `https://wa.me/${RAW_PHONE_INTL}`,
+  whatsappDisplay: `+${RAW_PHONE_INTL}`,
+  mailto: `mailto:${EMAIL}`,
+  tel: `tel:${RAW_PHONE_LOCAL}`,
 };
 
 export const dictionaries = {
@@ -47,7 +65,7 @@ export const dictionaries = {
       eyebrow: "الشفق لغسيل السيارات",
       headline: "غسيل سيارات احترافي أينما كنت",
       subheadline:
-        "أكثر من 11 فرع في الرياض وخدمة غسيل متنقلة تصلك إلى المنزل أو مقر العمل.",
+        "أكثر من {count} فرع في الرياض وخدمة غسيل متنقلة تصلك إلى المنزل أو مقر العمل.",
       downloadApp: "حمّل التطبيق",
       bookNow: "احجز الآن",
       sinceBadge: "منذ 2017",
@@ -57,7 +75,7 @@ export const dictionaries = {
       subtitle: "أرقام تعكس التزامنا بالجودة والخدمة المميزة",
       stats: [
         { value: "2017", label: "تأسست عام" },
-        { value: "+11", label: "فرع في الرياض" },
+        { value: "{count}+", label: "فرع في الرياض" },
         { value: "★", label: "خدمة عند موقعك" },
         { value: "✓", label: "جودة موثوقة وخدمة احترافية" },
         { value: "100%", label: "منتجات عالمية مختارة" },
@@ -81,7 +99,7 @@ export const dictionaries = {
         },
         {
           title: "خدمات الفروع",
-          desc: "أكثر من 11 فرع موزعة في أرجاء الرياض لخدمتك.",
+          desc: "أكثر من {count} فرع موزعة في أرجاء الرياض لخدمتك.",
         },
       ],
     },
@@ -198,6 +216,8 @@ export const dictionaries = {
       sourceLabel: "المصدر",
       placeholder: "قريبًا: آراء عملائنا الحقيقية",
       placeholderSubtitle: "نجمع الآن مراجعات موثّقة من عملائنا لنشرها هنا.",
+      showMore: "عرض المزيد",
+      showLess: "عرض أقل",
     },
     social: {
       title: "تابعنا على الشبكات الاجتماعية",
@@ -330,8 +350,15 @@ export const dictionaries = {
       eyebrow: "الفروع",
       title: "فروع الشفق في الرياض",
       subtitle:
-        "أكثر من 11 فرعاً موزعة في أرجاء الرياض لخدمتك. اختر الفرع الأقرب وابدأ رحلتك مع الشفق.",
+        "أكثر من {count} فرعاً موزعة في أرجاء الرياض لخدمتك. اختر الفرع الأقرب وابدأ رحلتك مع الشفق.",
       openBranch: "شاهد صفحة الفرع",
+      openBranchPage: "افتح صفحة الفرع",
+      hoursLabel: "ساعات العمل",
+      callLabel: "اتصال",
+      whatsappLabel: "واتساب",
+      unifiedCaption: "رقم خدمة العملاء والواتساب الموحد لجميع الفروع",
+      mapHeading: "خريطة الفروع",
+      listHeading: "قائمة الفروع",
     },
     branchPage: {
       breadcrumbBranches: "الفروع",
@@ -351,6 +378,11 @@ export const dictionaries = {
       ctaSubtitle: "افتح الاتجاهات مباشرة أو تواصل معنا لأي استفسار.",
       contactUs: "تواصل معنا",
       relatedBranches: "فروع أخرى قريبة",
+      aboutTitle: "نبذة عن الفرع",
+      callNow: "اتصل الآن",
+      whatsapp: "واتساب",
+      unifiedCaption: "رقم خدمة العملاء والواتساب الموحد لجميع الفروع",
+      waMessagePrefix: "السلام عليكم، أستفسر عن خدمات",
     },
     fleetPage: {
       eyebrow: "للشركات",
@@ -381,6 +413,9 @@ export const dictionaries = {
       documentsSubtitle: "حمّل تفاصيل خدمة الأساطيل بصيغة PDF.",
       brochureLabel: "تحميل بروشور الشركة",
       subscriptionLabel: "تحميل تفاصيل اشتراك الأسطول",
+      requestQuote: "اطلب عرض سعر",
+      requestQuoteWhatsapp: "اطلب عرض سعر عبر واتساب",
+      photoAlt: "أسطول سيارات الشركات",
     },
     appPage: {
       eyebrow: "تطبيق الشفق",
@@ -606,6 +641,8 @@ export const dictionaries = {
         "اختر الطريقة الأنسب لك للتواصل، أو أرسل لنا رسالة مباشرة من النموذج أدناه.",
       formTitle: "أرسل لنا رسالة",
       formSubtitle: "سنعاود التواصل معك في أقرب وقت.",
+      deliveryNote:
+        "عند الإرسال، سيفتح تطبيق واتساب أو تطبيق البريد لديك برسالة جاهزة — أنت من يضغط «إرسال» في النهاية.",
       nameLabel: "الاسم",
       namePlaceholder: "اسمك الكامل",
       phoneLabel: "رقم الجوال",
@@ -624,6 +661,101 @@ export const dictionaries = {
       readMore: "اقرأ المزيد",
       backToBlog: "العودة إلى المدونة",
       published: "منشور في",
+    },
+    franchisePage: {
+      metaTitle: "الامتياز التجاري | استثمر مع الشفق",
+      metaDescription:
+        "استثمر مع علامة سعودية تنمو بثقة — الامتياز التجاري متاح في جميع مدن المملكة. تعرّف على ما يحصل عليه المستثمر وخطوات الانضمام، ثم قدّم طلبك.",
+      heroEyebrow: "الامتياز التجاري",
+      heroTitle: "استثمر مع علامة سعودية تنمو بثقة",
+      heroSubtitle:
+        "الامتياز متاح في جميع مدن المملكة، والتفاصيل الاستثمارية تُشارك بعد مراجعة الطلب والتواصل.",
+      heroCta: "قدّم طلب امتياز",
+      whyTitle: "لماذا الشفق؟",
+      whySubtitle: "أربع نقاط بسيطة توضّح لماذا الشفق شريك استثماري جدير بالثقة.",
+      whyItems: [
+        { title: "خبرة منذ 2017", desc: "سنوات من التشغيل الفعلي في السوق السعودي." },
+        { title: "نموذج تشغيل قائم", desc: "عمليات فعلية ومجرّبة، لا مجرد فكرة على ورق." },
+        { title: "علامة معروفة", desc: "حضور واضح في الرياض عبر شبكة فروع وحسابات نشطة." },
+        { title: "دعم تشغيلي وتسويقي وتقني", desc: "منظومة متكاملة تسند الفرع منذ يومه الأول." },
+      ],
+      whyPhotoCaption: "فرع نموذجي من فروع الشفق",
+      whatIntro: "نثبت هنا فقط ما هو متوفر فعليًا لدينا اليوم.",
+      whatTitle: "ماذا يحصل عليه المستثمر؟",
+      whatItems: [
+        "الهوية",
+        "التصميم",
+        "التدريب",
+        "التشغيل",
+        "الأنظمة",
+        "التسويق",
+        "المتابعة",
+        "معايير الجودة",
+      ],
+      stepsTitle: "خطوات الانضمام",
+      stepsSubtitle: "ست خطوات واضحة من تقديم الطلب حتى الاتفاق.",
+      steps: [
+        "تقديم الطلب",
+        "مراجعة البيانات",
+        "التواصل",
+        "دراسة المدينة والموقع",
+        "عرض التفاصيل",
+        "الاتفاق",
+      ],
+      feesTitle: "الرسوم والتكاليف الاستثمارية",
+      feesBody:
+        "تفاصيل الرسوم والتكاليف الاستثمارية تُشارك بعد مراجعة الطلب والتواصل مع فريق الامتياز التجاري.",
+      formEyebrow: "قدّم طلبك",
+      formTitle: "ابدأ فرصتك مع الشفق",
+      formSubtitle: "املأ البيانات وسنعاود التواصل معك.",
+      fieldName: "الاسم",
+      fieldNamePlaceholder: "اسمك الكامل",
+      fieldPhone: "الجوال",
+      fieldPhonePlaceholder: "05xxxxxxxx",
+      fieldEmail: "البريد الإلكتروني",
+      fieldEmailPlaceholder: "you@example.com",
+      fieldCity: "المدينة",
+      fieldCityPlaceholder: "الرياض، جدة، الدمام…",
+      fieldHasLocation: "هل يوجد موقع؟",
+      fieldHasLocationYes: "نعم",
+      fieldHasLocationNo: "لا",
+      fieldArea: "المساحة التقريبية (م²)",
+      fieldAreaPlaceholder: "مثال: 400",
+      fieldExperience: "الخبرة الاستثمارية",
+      fieldExperiencePlaceholder: "نبذة قصيرة عن خبرتك الاستثمارية السابقة",
+      fieldNotes: "ملاحظات",
+      fieldNotesPlaceholder: "أي تفاصيل إضافية تحب مشاركتها",
+      submitWhatsapp: "قدّم طلب امتياز عبر واتساب",
+      submitEmail: "أرسل الطلب عبر البريد",
+      deliveryNote:
+        "عند الإرسال، سيفتح واتساب أو البريد برسالة جاهزة تحتوي بياناتك — أنت من يضغط «إرسال» في النهاية.",
+      applicationSubject: "طلب امتياز تجاري — الشفق لغسيل السيارات",
+      applicationIntro: "طلب امتياز جديد من موقع الشفق:",
+      faqTitle: "أسئلة شائعة",
+      faq: [
+        {
+          q: "هل الامتياز متاح بكل المدن؟",
+          a: "نعم، الامتياز متاح في جميع مدن المملكة. يتم دراسة كل مدينة وموقع بشكل مستقل بعد استلام الطلب.",
+        },
+        {
+          q: "هل يلزم موقع جاهز؟",
+          a: "غير مشترط، ويتم تقييم كل حالة حسب المدينة والموقع المتاح. يمكنك تقديم طلبك سواء كان لديك موقع أو لا.",
+        },
+        {
+          q: "كيف أحصل على الرسوم؟",
+          a: "تفاصيل الرسوم والتكاليف الاستثمارية تُشارك بعد مراجعة الطلب والتواصل مع فريق الامتياز التجاري.",
+        },
+        {
+          q: "كم تستغرق دراسة الطلب؟",
+          a: "تختلف المدة حسب اكتمال البيانات، وسيتواصل فريق الامتياز التجاري بعد المراجعة الأولية.",
+        },
+        {
+          q: "ما الدعم المقدم؟",
+          a: "دعم تشغيلي وتسويقي وتقني متكامل يشمل التدريب، الأنظمة، المتابعة، ومعايير الجودة — إضافة إلى الهوية والتصميم والتسويق.",
+        },
+      ],
+      ctaBanner: "جاهز تبدأ فرصتك مع الشفق؟",
+      ctaBannerButton: "قدّم طلب امتياز",
     },
     homeTeasers: {
       seeMore: "شاهد المزيد",
@@ -645,7 +777,7 @@ export const dictionaries = {
         "حلول متكاملة لغسيل أساطيل الشركات مع لوحة إدارة وتقارير.",
       fleetLink: "شاهد خدمة الشركات",
       branchesEyebrow: "الفروع",
-      branchesTitle: "أكثر من 11 فرعاً في الرياض",
+      branchesTitle: "أكثر من {count} فرعاً في الرياض",
       branchesSubtitle: "اعثر على أقرب فرع لك واستمتع بخدمتنا.",
       branchesLink: "شاهد الفروع",
       contactStripTitle: "تواصل معنا مباشرة",
@@ -690,7 +822,7 @@ export const dictionaries = {
       eyebrow: "Ashafaq Car Wash",
       headline: "Professional Car Wash, Wherever You Are",
       subheadline:
-        "More than 11 branches across Riyadh, plus a mobile car wash service that comes to your home or office.",
+        "More than {count} branches across Riyadh, plus a mobile car wash service that comes to your home or office.",
       downloadApp: "Download the App",
       bookNow: "Book Now",
       sinceBadge: "Since 2017",
@@ -700,7 +832,7 @@ export const dictionaries = {
       subtitle: "Numbers that reflect our commitment to quality and service",
       stats: [
         { value: "2017", label: "Founded in" },
-        { value: "11+", label: "Branches in Riyadh" },
+        { value: "{count}+", label: "Branches in Riyadh" },
         { value: "★", label: "Service At Your Location" },
         { value: "✓", label: "Trusted Quality & Professional Service" },
         { value: "100%", label: "Carefully Selected Global Products" },
@@ -724,7 +856,7 @@ export const dictionaries = {
         },
         {
           title: "Branch Services",
-          desc: "11+ branches spread across Riyadh ready to serve you.",
+          desc: "{count}+ branches spread across Riyadh ready to serve you.",
         },
       ],
     },
@@ -841,6 +973,8 @@ export const dictionaries = {
       sourceLabel: "Source",
       placeholder: "Coming soon: real reviews from our customers",
       placeholderSubtitle: "We're gathering verified reviews from our customers to publish here.",
+      showMore: "Show more",
+      showLess: "Show less",
     },
     social: {
       title: "Follow Us on Social Media",
@@ -973,8 +1107,15 @@ export const dictionaries = {
       eyebrow: "Branches",
       title: "Ashafaq branches in Riyadh",
       subtitle:
-        "More than 11 branches across Riyadh. Pick the closest one and start your Ashafaq experience.",
+        "More than {count} branches across Riyadh. Pick the closest one and start your Ashafaq experience.",
       openBranch: "View branch page",
+      openBranchPage: "Open branch page",
+      hoursLabel: "Opening hours",
+      callLabel: "Call",
+      whatsappLabel: "WhatsApp",
+      unifiedCaption: "Unified customer service & WhatsApp number for all branches",
+      mapHeading: "Branches map",
+      listHeading: "All branches",
     },
     branchPage: {
       breadcrumbBranches: "Branches",
@@ -994,6 +1135,11 @@ export const dictionaries = {
       ctaSubtitle: "Open directions right away, or reach us with any question.",
       contactUs: "Contact us",
       relatedBranches: "Other nearby branches",
+      aboutTitle: "About this branch",
+      callNow: "Call now",
+      whatsapp: "WhatsApp",
+      unifiedCaption: "Unified customer service & WhatsApp number for all branches",
+      waMessagePrefix: "Hello, I have a question about",
     },
     fleetPage: {
       eyebrow: "For Companies",
@@ -1024,6 +1170,9 @@ export const dictionaries = {
       documentsSubtitle: "Download the fleet service details as PDF.",
       brochureLabel: "Download company brochure",
       subscriptionLabel: "Download fleet subscription details",
+      requestQuote: "Request a quote",
+      requestQuoteWhatsapp: "Request a quote via WhatsApp",
+      photoAlt: "Corporate fleet vehicles",
     },
     appPage: {
       eyebrow: "Ashafaq App",
@@ -1248,6 +1397,8 @@ export const dictionaries = {
       subtitle: "Pick the channel that suits you, or send us a message directly from the form below.",
       formTitle: "Send us a message",
       formSubtitle: "We'll get back to you as soon as possible.",
+      deliveryNote:
+        "On send, WhatsApp or your email app opens with the message pre-filled — you tap 'send' from there.",
       nameLabel: "Name",
       namePlaceholder: "Your full name",
       phoneLabel: "Phone number",
@@ -1265,6 +1416,101 @@ export const dictionaries = {
       readMore: "Read more",
       backToBlog: "Back to blog",
       published: "Published on",
+    },
+    franchisePage: {
+      metaTitle: "Franchise | Invest with Ashafaq",
+      metaDescription:
+        "Invest in a Saudi brand that's growing with confidence — franchise opportunities are open across all cities of the Kingdom. Learn what franchisees get, the steps to join, then submit your application.",
+      heroEyebrow: "Franchise",
+      heroTitle: "Invest in a Saudi brand growing with confidence",
+      heroSubtitle:
+        "Franchise opportunities are available in every city of the Kingdom. Investment specifics are shared after we review your application and get in touch.",
+      heroCta: "Apply for a franchise",
+      whyTitle: "Why Ashafaq?",
+      whySubtitle: "Four simple reasons Ashafaq is a franchise partner worth trusting.",
+      whyItems: [
+        { title: "Experience since 2017", desc: "Years of real operational track record in the Saudi market." },
+        { title: "Proven operating model", desc: "Actual, tested operations — not just an idea on paper." },
+        { title: "Recognized brand", desc: "A clear presence in Riyadh through a branch network and active channels." },
+        { title: "Operational, marketing & tech support", desc: "An end-to-end system that stands behind the branch from day one." },
+      ],
+      whyPhotoCaption: "A representative Ashafaq branch",
+      whatIntro: "We list here only what we actually offer today.",
+      whatTitle: "What does the franchisee get?",
+      whatItems: [
+        "Brand identity",
+        "Design",
+        "Training",
+        "Operations",
+        "Systems",
+        "Marketing",
+        "Follow-up",
+        "Quality standards",
+      ],
+      stepsTitle: "Steps to join",
+      stepsSubtitle: "Six clear steps from application to agreement.",
+      steps: [
+        "Submit application",
+        "Data review",
+        "First contact",
+        "City & location study",
+        "Details presented",
+        "Agreement",
+      ],
+      feesTitle: "Fees & investment cost",
+      feesBody:
+        "Details of fees and investment costs are shared after we review your application and get in touch with the franchise team.",
+      formEyebrow: "Apply now",
+      formTitle: "Start your opportunity with Ashafaq",
+      formSubtitle: "Fill in your details and we'll get back to you.",
+      fieldName: "Name",
+      fieldNamePlaceholder: "Your full name",
+      fieldPhone: "Phone",
+      fieldPhonePlaceholder: "05xxxxxxxx",
+      fieldEmail: "Email",
+      fieldEmailPlaceholder: "you@example.com",
+      fieldCity: "City",
+      fieldCityPlaceholder: "Riyadh, Jeddah, Dammam…",
+      fieldHasLocation: "Do you have a location?",
+      fieldHasLocationYes: "Yes",
+      fieldHasLocationNo: "No",
+      fieldArea: "Approximate area (m²)",
+      fieldAreaPlaceholder: "e.g. 400",
+      fieldExperience: "Investment experience",
+      fieldExperiencePlaceholder: "A short note about your previous investment experience",
+      fieldNotes: "Notes",
+      fieldNotesPlaceholder: "Any extra details you'd like to share",
+      submitWhatsapp: "Send application via WhatsApp",
+      submitEmail: "Send application via email",
+      deliveryNote:
+        "On send, WhatsApp or your email app opens with your details pre-filled — you tap 'send' from there.",
+      applicationSubject: "Franchise application — Ashafaq Car Wash",
+      applicationIntro: "New franchise application from the Ashafaq site:",
+      faqTitle: "FAQ",
+      faq: [
+        {
+          q: "Is the franchise available in every city?",
+          a: "Yes — franchise opportunities are open in every city of the Kingdom. Each city and location is studied independently once the application is received.",
+        },
+        {
+          q: "Do I need a ready location?",
+          a: "Not required. Each case is evaluated based on the city and the location available. You can apply whether or not you already have a site.",
+        },
+        {
+          q: "How do I get the fee details?",
+          a: "Details of fees and investment costs are shared after we review your application and get in touch with the franchise team.",
+        },
+        {
+          q: "How long does the review take?",
+          a: "It depends on how complete your submitted information is. The franchise team will reach out after the initial review.",
+        },
+        {
+          q: "What support is provided?",
+          a: "End-to-end operational, marketing, and technical support — including training, systems, follow-up, and quality standards, alongside brand identity, design, and marketing.",
+        },
+      ],
+      ctaBanner: "Ready to start your opportunity with Ashafaq?",
+      ctaBannerButton: "Apply for a franchise",
     },
     homeTeasers: {
       seeMore: "See more",
@@ -1286,7 +1532,7 @@ export const dictionaries = {
         "Complete corporate fleet washing with a management dashboard and reports.",
       fleetLink: "See the company service",
       branchesEyebrow: "Branches",
-      branchesTitle: "More than 11 branches in Riyadh",
+      branchesTitle: "More than {count} branches in Riyadh",
       branchesSubtitle: "Find your nearest branch and enjoy our service.",
       branchesLink: "See branches",
       contactStripTitle: "Reach us directly",
