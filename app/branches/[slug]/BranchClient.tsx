@@ -5,12 +5,13 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/LanguageProvider";
-import { CONTACT } from "@/lib/i18n";
 import {
   BRANCHES,
+  UNIFIED_CONTACT,
   buildDirectionsUrl,
   type Branch,
 } from "@/lib/branches";
+import { trackEvent } from "@/lib/analytics";
 
 const BranchesMap = dynamic(() => import("@/components/BranchesMap"), {
   ssr: false,
@@ -22,8 +23,13 @@ export default function BranchClient({ branch }: { branch: Branch }) {
   const { dict, locale } = useLang();
   const bp = dict.branchPage;
   const name = locale === "ar" ? branch.nameAr : branch.nameEn;
+  const description = locale === "ar" ? branch.description : branch.descriptionEn;
+  const hours = locale === "ar" ? branch.hours : branch.hoursEn;
   const directionsHref = buildDirectionsUrl(branch);
   const photo = branch.photoSrc ?? FALLBACK_PHOTO;
+  const waHref = `${UNIFIED_CONTACT.whatsapp}?text=${encodeURIComponent(
+    `${bp.waMessagePrefix} ${name}`
+  )}`;
 
   // 3 nearest other branches — cheap Euclidean on lat/lng, fine for Riyadh scale
   const others = BRANCHES
@@ -74,26 +80,43 @@ export default function BranchClient({ branch }: { branch: Branch }) {
             <p className="mt-2 text-sm sm:text-base text-[#667085]">
               {branch.lat.toFixed(4)}, {branch.lng.toFixed(4)}
             </p>
+
+            {/* Action row: call / whatsapp / directions */}
             <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={UNIFIED_CONTACT.tel}
+                onClick={() => trackEvent("phone_call_click", { branch_slug: branch.slug, source: "branch_page" })}
+                className="btn-primary text-sm"
+              >
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                {bp.callNow}
+              </a>
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent("whatsapp_click", { branch_slug: branch.slug, source: "branch_page" })}
+                className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-white border border-[#E6EAF2] text-[#0B1F3A] font-semibold text-sm hover:bg-[#F5F7FA] transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#25D366]" aria-hidden>
+                  <path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 .01 5.37.01 12c0 2.11.55 4.16 1.6 5.98L0 24l6.2-1.63A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22a9.97 9.97 0 0 1-5.08-1.39l-.36-.22-3.68.97.98-3.59-.24-.37A9.98 9.98 0 1 1 22 12c0 5.51-4.49 10-10 10zm5.47-7.14c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.49s1.08 2.88 1.23 3.08c.15.2 2.13 3.25 5.16 4.56.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" />
+                </svg>
+                {bp.whatsapp}
+              </a>
               <a
                 href={directionsHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary text-sm"
+                onClick={() => trackEvent("directions_click", { branch_slug: branch.slug })}
+                className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-white border border-[#E6EAF2] text-[#0B1F3A] font-semibold text-sm hover:bg-[#F5F7FA] transition-colors"
               >
-                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#1F5EFF]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" />
                   <circle cx="12" cy="10" r="2.5" />
                 </svg>
                 {bp.openDirections}
-              </a>
-              <a
-                href={branch.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary text-sm"
-              >
-                {bp.openInMaps}
               </a>
               {branch.googleReviewsUrl && (
                 <a
@@ -107,6 +130,29 @@ export default function BranchClient({ branch }: { branch: Branch }) {
                 </a>
               )}
             </div>
+            <p className="mt-3 text-xs text-[#667085]">
+              {bp.unifiedCaption} · <span dir="ltr" className="font-semibold text-[#0B1F3A]">{UNIFIED_CONTACT.local}</span>
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* About this branch */}
+      <section className="pb-8 sm:pb-12 bg-white">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+            className="card rounded-3xl p-6 sm:p-8"
+          >
+            <h2 className="text-lg sm:text-xl font-bold text-[#0B1F3A]">
+              {bp.aboutTitle}
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-[#0B1F3A] leading-[1.9]">
+              {description}
+            </p>
           </motion.div>
         </div>
       </section>
@@ -138,34 +184,15 @@ export default function BranchClient({ branch }: { branch: Branch }) {
       {/* Hours + Services */}
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-5 sm:gap-6">
-          {/* Hours block — only render when we have real data OR at least a maps URL to point at */}
-          {(branch.hours || branch.mapsUrl) && (
-            <div className="card rounded-3xl p-6 sm:p-7">
-              <h2 className="text-lg sm:text-xl font-bold text-[#0B1F3A]">
-                {bp.hoursTitle}
-              </h2>
-              {branch.hours ? (
-                <p className="mt-3 text-sm sm:text-base text-[#0B1F3A] leading-relaxed">
-                  {branch.hours}
-                </p>
-              ) : (
-                <>
-                  <p className="mt-3 text-sm sm:text-base text-[#667085] leading-relaxed">
-                    {bp.hoursUnknown}
-                  </p>
-                  <a
-                    href={branch.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1F5EFF] hover:text-[#1A50DA]"
-                  >
-                    {bp.checkGoogleHours}
-                    <span>→</span>
-                  </a>
-                </>
-              )}
-            </div>
-          )}
+          {/* Hours block — real data for every branch now */}
+          <div className="card rounded-3xl p-6 sm:p-7">
+            <h2 className="text-lg sm:text-xl font-bold text-[#0B1F3A]">
+              {bp.hoursTitle}
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-[#0B1F3A] leading-relaxed">
+              {hours}
+            </p>
+          </div>
 
           {/* Services block */}
           <div className="card rounded-3xl p-6 sm:p-7">
@@ -220,23 +247,26 @@ export default function BranchClient({ branch }: { branch: Branch }) {
                 href={directionsHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("directions_click", { branch_slug: branch.slug })}
                 className="btn-primary text-sm"
               >
                 {bp.openDirections}
               </a>
               <a
-                href={CONTACT.tel}
+                href={UNIFIED_CONTACT.tel}
+                onClick={() => trackEvent("phone_call_click", { branch_slug: branch.slug, source: "branch_cta" })}
                 className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-white border border-[#E6EAF2] text-[#0B1F3A] font-semibold text-sm hover:bg-[#F5F7FA] transition-colors"
               >
                 <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                <span dir="ltr">{CONTACT.phone}</span>
+                <span dir="ltr">{UNIFIED_CONTACT.local}</span>
               </a>
               <Link href="/contact/" className="btn-secondary text-sm">
                 {bp.contactUs}
               </Link>
             </div>
+            <p className="mt-4 text-xs text-[#667085]">{bp.unifiedCaption}</p>
           </motion.div>
         </div>
       </section>
@@ -259,7 +289,7 @@ export default function BranchClient({ branch }: { branch: Branch }) {
                       {locale === "ar" ? o.nameAr : o.nameEn}
                     </span>
                     <span aria-hidden className="text-[#1F5EFF]">
-                      ←
+                      {locale === "ar" ? "←" : "→"}
                     </span>
                   </Link>
                 </li>
