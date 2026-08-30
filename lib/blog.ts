@@ -44,12 +44,15 @@ export type BlogArticle = {
   metaDescription: string;
   category: string;
   excerpt: string;
+  /** Path under public/ for the article's featured/hero image (used on the article page, blog list card, and OpenGraph). */
+  featuredImage?: string;
   body?: ArticleBody;
 };
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "car-wash-prices-riyadh",
+    featuredImage: "/images/blog_image/blog1.png",
     title: "أسعار غسيل السيارات في الرياض 2026: دليل الأسعار والخدمات",
     metaTitle: "أسعار غسيل السيارات في الرياض 2026 | الشفق",
     metaDescription:
@@ -182,6 +185,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "how-to-choose-car-wash-riyadh",
+    featuredImage: "/images/blog_image/blog2.png",
     title: "كيف تختار مغسلة سيارات مناسبة في الرياض؟",
     metaTitle: "كيف تختار مغسلة سيارات مناسبة في الرياض؟ | الشفق",
     metaDescription:
@@ -368,6 +372,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "car-wash-branches-riyadh",
+    featuredImage: "/images/blog_image/blog3.png",
     title: "مغاسل سيارات في الرياض: دليل فروع الشفق ومواقعها",
     metaTitle: "مغاسل سيارات في الرياض | فروع الشفق ومواقعها",
     metaDescription:
@@ -577,6 +582,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "mobile-car-wash-riyadh",
+    featuredImage: "/images/blog_image/blog4.png",
     title: "غسيل سيارات متنقل في الرياض: راحة أكبر وخدمة تصل إلى موقعك",
     metaTitle: "غسيل سيارات متنقل في الرياض | خدمة تصلك في موقعك",
     metaDescription:
@@ -778,6 +784,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "fleet-car-wash-riyadh",
+    featuredImage: "/images/blog_image/blog5.png",
     title: "غسيل أساطيل الشركات في الرياض: خدمة منظمة لسيارات العمل",
     metaTitle: "غسيل أساطيل الشركات في الرياض | خدمة الشفق للأساطيل",
     metaDescription:
@@ -991,6 +998,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "car-care-after-wash-riyadh",
+    featuredImage: "/images/blog_image/blog6.png",
     title: "العناية بالسيارة بعد الغسيل: كيف تحافظ على نظافتها فترة أطول؟",
     metaTitle: "العناية بالسيارة بعد الغسيل | الحفاظ على النظافة",
     metaDescription:

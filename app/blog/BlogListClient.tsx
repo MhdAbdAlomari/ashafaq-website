@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import { useLang } from "@/components/LanguageProvider";
@@ -24,26 +25,42 @@ export default function BlogListClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
-                className="card rounded-3xl p-6 sm:p-7 flex flex-col hover:border-[#DDE7FF] hover:-translate-y-1 transition-all duration-300"
+                className="group card rounded-3xl overflow-hidden flex flex-col hover:border-[#DDE7FF] hover:-translate-y-1 transition-all duration-300"
               >
-                <span className="self-start inline-flex items-center px-3 h-6 rounded-full bg-[#EAF1FF] text-[#1F5EFF] text-[11px] font-semibold">
-                  {a.category}
-                </span>
-                <h2 className="mt-4 text-lg sm:text-xl font-bold text-[#0B1F3A] leading-snug">
-                  <Link href={`/blog/${a.slug}/`} className="hover:text-[#1F5EFF] transition-colors">
-                    {a.title}
+                {a.featuredImage && (
+                  <Link
+                    href={`/blog/${a.slug}/`}
+                    className="relative block aspect-[16/10] overflow-hidden bg-[#F5F7FA]"
+                  >
+                    <Image
+                      src={a.featuredImage}
+                      alt={a.title}
+                      fill
+                      sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                   </Link>
-                </h2>
-                <p className="mt-3 text-sm text-[#667085] leading-relaxed flex-1">
-                  {a.excerpt}
-                </p>
-                <Link
-                  href={`/blog/${a.slug}/`}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1F5EFF] hover:text-[#1A50DA] self-start"
-                >
-                  {b.readMore}
-                  <span>→</span>
-                </Link>
+                )}
+                <div className="p-6 sm:p-7 flex flex-col flex-1">
+                  <span className="self-start inline-flex items-center px-3 h-6 rounded-full bg-[#EAF1FF] text-[#1F5EFF] text-[11px] font-semibold">
+                    {a.category}
+                  </span>
+                  <h2 className="mt-4 text-lg sm:text-xl font-bold text-[#0B1F3A] leading-snug">
+                    <Link href={`/blog/${a.slug}/`} className="hover:text-[#1F5EFF] transition-colors">
+                      {a.title}
+                    </Link>
+                  </h2>
+                  <p className="mt-3 text-sm text-[#667085] leading-relaxed flex-1">
+                    {a.excerpt}
+                  </p>
+                  <Link
+                    href={`/blog/${a.slug}/`}
+                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1F5EFF] hover:text-[#1A50DA] self-start"
+                  >
+                    {b.readMore}
+                    <span>→</span>
+                  </Link>
+                </div>
               </motion.article>
             ))}
           </div>

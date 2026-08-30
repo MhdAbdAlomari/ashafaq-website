@@ -23,6 +23,9 @@ export async function generateMetadata({
       title: article.metaTitle,
       description: article.metaDescription,
       type: "article",
+      images: article.featuredImage
+        ? [{ url: article.featuredImage, alt: article.title }]
+        : undefined,
     },
   };
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/LanguageProvider";
 import type {
@@ -63,13 +64,13 @@ function renderParagraph(p: Paragraph, key: number) {
 
   if (typeof p === "string") {
     return (
-      <p key={key} className="text-[#111827] text-base sm:text-[17px] leading-[1.9]">
+      <p key={key} className="text-[#111827] text-[17px] sm:text-lg leading-[1.9]">
         {p}
       </p>
     );
   }
   return (
-    <p key={key} className="text-[#111827] text-base sm:text-[17px] leading-[1.9]">
+    <p key={key} className="text-[#111827] text-[17px] sm:text-lg leading-[1.9]">
       {p.segments.map((seg, i) =>
         isLinkSegment(seg) ? (
           <Link
@@ -118,7 +119,7 @@ export default function ArticleClient({ article }: { article: BlogArticle }) {
         lang="ar"
         className="pb-16 sm:pb-24 bg-white"
       >
-        <div className="max-w-[68ch] mx-auto px-5 sm:px-8">
+        <div className="max-w-[72ch] mx-auto px-5 sm:px-8">
           <motion.header
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,6 +135,24 @@ export default function ArticleClient({ article }: { article: BlogArticle }) {
               {article.excerpt}
             </p>
           </motion.header>
+
+          {article.featuredImage && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mt-8 relative rounded-3xl overflow-hidden border border-[#E6EAF2] shadow-[0_20px_60px_-30px_rgba(11,31,58,0.25)] aspect-[16/9]"
+            >
+              <Image
+                src={article.featuredImage}
+                alt={article.title}
+                fill
+                priority
+                sizes="(min-width: 768px) 72ch, 100vw"
+                className="object-cover"
+              />
+            </motion.div>
+          )}
 
           {article.body ? (
             <div className="mt-10 space-y-10">
