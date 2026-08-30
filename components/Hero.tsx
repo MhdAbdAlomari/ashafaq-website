@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
+import { withBranchCount } from "@/lib/i18n";
+import { BRANCH_COUNT_DISPLAY } from "@/lib/branches";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Hero() {
   const { dict } = useLang();
@@ -46,7 +49,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.25 }}
             className="mt-6 max-w-xl text-base sm:text-lg text-[#667085] leading-relaxed"
           >
-            {dict.hero.subheadline}
+            {withBranchCount(dict.hero.subheadline)}
           </motion.p>
 
           <motion.div
@@ -55,10 +58,18 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.4 }}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <Link href="/app/" className="btn-primary shine text-sm sm:text-base">
+            <Link
+              href="/app/"
+              onClick={() => trackEvent("app_download_click", { source: "hero" })}
+              className="btn-primary shine text-sm sm:text-base"
+            >
               {dict.hero.downloadApp}
             </Link>
-            <Link href="/contact/" className="btn-secondary text-sm sm:text-base">
+            <Link
+              href="/contact/"
+              onClick={() => trackEvent("booking_click", { source: "hero" })}
+              className="btn-secondary text-sm sm:text-base"
+            >
               {dict.hero.bookNow}
             </Link>
           </motion.div>
@@ -112,7 +123,7 @@ export default function Hero() {
           {/* Real-data stat tiles (no fabricated numbers — these come from i18n common.*) */}
           <div className="relative mt-6 grid grid-cols-3 gap-3 text-center">
             {[
-              { v: "11+", l: dict.common.branchesShort },
+              { v: BRANCH_COUNT_DISPLAY, l: dict.common.branchesShort },
               { v: "2017", l: dict.common.foundedShort },
               { v: "★", l: dict.common.onSiteShort },
             ].map((s, i) => (

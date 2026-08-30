@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
 import { APP_LINKS } from "@/lib/branches";
 import { CONTACT } from "@/lib/i18n";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Contact() {
   const { dict } = useLang();
@@ -35,12 +36,14 @@ export default function Contact() {
                 href={APP_LINKS.ios}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("app_download_click", { platform: "ios", source: "contact_block" })}
                 className="shine inline-flex items-center h-12 px-7 rounded-full bg-white text-[#0B1F3A] font-bold text-sm hover:bg-[#EAF1FF] transition-colors"
               >
                 {dict.contact.download}
               </a>
               <a
                 href={CONTACT.tel}
+                onClick={() => trackEvent("phone_call_click", { source: "contact_block" })}
                 className="inline-flex items-center h-12 px-7 rounded-full bg-[#1F5EFF] text-white font-semibold text-sm hover:bg-[#1A50DA] transition-colors shadow-[0_6px_16px_-6px_rgba(31,94,255,0.5)]"
               >
                 {dict.contact.phone}
@@ -49,6 +52,7 @@ export default function Contact() {
                 href={CONTACT.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("whatsapp_click", { source: "contact_block" })}
                 className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#25D366] text-white font-bold text-sm hover:bg-[#1FBA57] transition-colors"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">

@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
-import { CONTACT } from "@/lib/i18n";
+import { CONTACT, withBranchCount } from "@/lib/i18n";
+import { BRANCH_COUNT_DISPLAY } from "@/lib/branches";
 
 /* ─── ServicesTeaser ────────────────────────────────────────────────── */
 export function ServicesTeaser() {
@@ -12,7 +13,7 @@ export function ServicesTeaser() {
   const t = dict.homeTeasers;
   const s = dict.servicesPage;
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-white">
+    <section className="py-14 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="text-center max-w-2xl mx-auto">
           <span className="eyebrow">{t.servicesEyebrow}</span>
@@ -61,7 +62,7 @@ export function PricesTeaser() {
   const t = dict.homeTeasers;
   const p = dict.pricesPage;
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-[#F5F7FA]">
+    <section className="py-14 sm:py-16 lg:py-20 bg-[#F5F7FA]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="text-center max-w-2xl mx-auto">
           <span className="eyebrow">{t.pricesEyebrow}</span>
@@ -160,7 +161,7 @@ export function AppTeaser() {
   const { dict } = useLang();
   const t = dict.homeTeasers;
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-white">
+    <section className="py-14 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="card rounded-[2rem] p-8 sm:p-10 lg:p-12 grid lg:grid-cols-[1.2fr_1fr] gap-8 items-center">
           <div>
@@ -200,7 +201,7 @@ export function FleetTeaser() {
   const { dict } = useLang();
   const t = dict.homeTeasers;
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-[#F5F7FA]">
+    <section className="py-14 sm:py-16 lg:py-20 bg-[#F5F7FA]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="text-center max-w-2xl mx-auto">
           <span className="eyebrow">{t.fleetEyebrow}</span>
@@ -253,17 +254,17 @@ export function BranchesTeaser() {
   const { dict } = useLang();
   const t = dict.homeTeasers;
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-white">
+    <section className="py-14 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center">
         <span className="eyebrow">{t.branchesEyebrow}</span>
         <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0B1F3A]">
-          {t.branchesTitle}
+          {withBranchCount(t.branchesTitle)}
         </h2>
         <p className="mt-3 text-sm sm:text-base text-[#667085]">
           {t.branchesSubtitle}
         </p>
         <div className="mt-6 inline-flex items-center gap-2 px-5 h-11 rounded-full bg-[#EAF1FF] text-[#1F5EFF] font-bold text-sm">
-          11+
+          {BRANCH_COUNT_DISPLAY}
           <span className="text-[#0B1F3A] font-semibold">
             {dict.common.branchesShort}
           </span>
