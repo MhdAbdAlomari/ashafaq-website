@@ -16,8 +16,8 @@ import {
 export default function Home() {
   return (
     <>
-      <Hero />
       <Banner />
+      <Hero />
       <Trust />
       <ServicesTeaser />
       <PricesTeaser />

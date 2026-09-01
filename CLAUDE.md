@@ -45,11 +45,11 @@ These have been re-established across many passes. Break these and the client wi
 - **Never invent phone numbers.** The site-wide phone lives in `CONTACT` in `lib/i18n.ts`. Per-branch phone numbers do not exist yet — if a branch had one, it would go in a new optional `Branch` field.
 - **Never invent star ratings or review counts.** Earlier passes deleted a hardcoded "4.9/5 ⭐⭐⭐⭐⭐" trust chip because it had no data source. If asked to add a rating, verify it's backed by real data first.
 - **Never invent testimonials or customer names.** Testimonials in `lib/testimonials.ts` came from real App Store / Instagram / Snapchat quotes and were intentionally recorded WITHOUT names (no name data was collected). Don't add fake names to make cards "look complete."
-- **Never invent branch counts.** Always compute from `BRANCH_COUNT` / `BRANCH_COUNT_DISPLAY` in `lib/branches.ts` — hardcoding "11+" or "٫١١" was a recurring bug that took multiple sweeps to fully eliminate. Use `withBranchCount(str)` from `lib/i18n.ts` for i18n strings containing `{count}` placeholders.
+- **Never invent branch counts.** Always compute from `BRANCH_COUNT` / `BRANCH_COUNT_DISPLAY` in `lib/branches.ts` — hardcoding "11+" or "٫١١" was a recurring bug that took multiple sweeps to fully eliminate. Use `withBranchCount(str)` from `lib/i18n.ts` for i18n strings containing `{count}` placeholders. **Per manager instruction (2026-08-27)** the branch count is exact (no "+" suffix, no "أكثر من"); the dataset is the total. If more branches exist, they MUST be added to `BRANCHES` rather than shown as a "+" suffix. `BRANCH_COUNT_DISPLAY` is now `${BRANCHES.length}` (no plus).
 - **Never invent Google reviews URLs.** `branch.googleReviewsUrl` is optional; the "Read reviews on Google" button on branch pages only renders when populated.
 - **When real data is missing, omit the field/section cleanly** rather than showing a fabricated placeholder. The one exception: honest "not yet available, check X" fallbacks where explicitly established (currently only `branch.hours`).
 - **Pricing is two-tier and both tiers must always be shown together.** External-only: 20/25/30 SAR (small/mid/large). Interior+exterior: 30/35/40 SAR. Never quote just one tier — that was a recurring stale-copy bug.
-- **Free "لمسة الشفق" list is exactly 3 items**: تلبيس الدركسون، تلبيس القير، تعليقة عطر الشفق. Never introduce a 4th (an earlier "تلبيس المساحات" wiper cover was dropped by the client).
+- **Free "لمسة الشفق" list is exactly 5 items** (manager-approved 2026-08-27): تلبيس الدركسون، تلبيس القير، تكييس عصا الإشارات، تكييس المساحات، تعليقة عطر الشفق. This supersedes the earlier 3-item rule — تكييس المساحات (wiper cover) was re-added, and تكييس عصا الإشارات (turn-signal stalk cover) added new.
 
 ---
 
