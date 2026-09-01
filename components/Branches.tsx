@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useLang } from "./LanguageProvider";
-import { BRANCHES, UNIFIED_CONTACT } from "@/lib/branches";
+import { BRANCHES, UNIFIED_CONTACT, findNearestBranch } from "@/lib/branches";
 import { trackEvent } from "@/lib/analytics";
 
 const BranchesMap = dynamic(() => import("./BranchesMap"), {
@@ -15,10 +15,42 @@ const BranchesMap = dynamic(() => import("./BranchesMap"), {
 
 const FALLBACK_PHOTO = "/images/ashafaq_home.jpg";
 
+type NearestState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "ok"; branchSlug: string; branchNameAr: string; branchNameEn: string }
+  | { status: "error"; message: string };
+
 export default function Branches({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   const { dict, locale } = useLang();
   const bp = dict.branchesPage;
   const [active, setActive] = useState<string | null>(null);
+  const [nearest, setNearest] = useState<NearestState>({ status: "idle" });
+
+  const handleFindNearest = () => {
+    if (typeof window === "undefined" || !("geolocation" in navigator)) {
+      setNearest({ status: "error", message: bp.nearestUnsupported });
+      return;
+    }
+    setNearest({ status: "loading" });
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const b = findNearestBranch(pos.coords.latitude, pos.coords.longitude);
+        setNearest({
+          status: "ok",
+          branchSlug: b.slug,
+          branchNameAr: b.nameAr,
+          branchNameEn: b.nameEn,
+        });
+        setActive(b.id);
+        trackEvent("branch_select", { branch_slug: b.slug, source: "find_nearest" });
+      },
+      () => {
+        setNearest({ status: "error", message: bp.nearestError });
+      },
+      { enableHighAccuracy: false, maximumAge: 60_000, timeout: 10_000 }
+    );
+  };
 
   return (
     <section
@@ -44,8 +76,42 @@ export default function Branches({ hideHeader = false }: { hideHeader?: boolean 
           </motion.div>
         )}
 
+        {/* Find nearest branch */}
+        <div className={`${hideHeader ? "mb-6" : "mt-10 mb-4"} flex flex-wrap items-center justify-center gap-3`}>
+          <button
+            type="button"
+            onClick={handleFindNearest}
+            disabled={nearest.status === "loading"}
+            className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-[#1F5EFF] text-white text-sm font-bold hover:bg-[#1A50DA] disabled:opacity-70 transition-colors shadow-[0_8px_20px_-10px_rgba(31,94,255,0.55)]"
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            </svg>
+            {nearest.status === "loading" ? bp.findingNearest : bp.findNearest}
+          </button>
+          {nearest.status === "ok" && (
+            <div className="inline-flex items-center gap-3 px-4 h-11 rounded-full bg-[#EAF1FF] text-[#0B1F3A] text-sm">
+              <span className="font-semibold">
+                {bp.nearestResult}: {locale === "ar" ? nearest.branchNameAr : nearest.branchNameEn}
+              </span>
+              <Link
+                href={`/branches/${nearest.branchSlug}/`}
+                className="font-bold text-[#1F5EFF] hover:text-[#1A50DA]"
+              >
+                {bp.nearestGoTo} {locale === "ar" ? "←" : "→"}
+              </Link>
+            </div>
+          )}
+          {nearest.status === "error" && (
+            <p className="text-sm text-[#667085] max-w-md text-center">
+              {nearest.message}
+            </p>
+          )}
+        </div>
+
         {/* Full-width map */}
-        <div className={hideHeader ? "" : "mt-12 sm:mt-14"}>
+        <div className={hideHeader ? "" : "mt-6 sm:mt-8"}>
           <div className="rounded-3xl overflow-hidden border border-[#E6EAF2] shadow-[0_10px_30px_-15px_rgba(11,31,58,0.15)]">
             <BranchesMap
               focusId={active}

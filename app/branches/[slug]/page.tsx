@@ -65,6 +65,8 @@ function buildBranchJsonLd(branch: Branch): Record<string, unknown> {
       "@type": "PostalAddress",
       addressLocality: "Riyadh",
       addressCountry: "SA",
+      // streetAddress omitted when undefined; only emitted with real data.
+      ...(branch.address ? { streetAddress: branch.address } : {}),
     },
     parentOrganization: { "@id": `${SITE_URL}/#business` },
     brand: { "@id": `${SITE_URL}/#business` },

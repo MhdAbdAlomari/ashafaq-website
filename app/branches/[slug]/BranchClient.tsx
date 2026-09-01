@@ -25,6 +25,8 @@ export default function BranchClient({ branch }: { branch: Branch }) {
   const name = locale === "ar" ? branch.nameAr : branch.nameEn;
   const description = locale === "ar" ? branch.description : branch.descriptionEn;
   const hours = locale === "ar" ? branch.hours : branch.hoursEn;
+  const address = locale === "ar" ? branch.address : branch.addressEn ?? branch.address;
+  const landmark = locale === "ar" ? branch.landmark : branch.landmarkEn ?? branch.landmark;
   const directionsHref = buildDirectionsUrl(branch);
   const photo = branch.photoSrc ?? FALLBACK_PHOTO;
   const waHref = `${UNIFIED_CONTACT.whatsapp}?text=${encodeURIComponent(
@@ -153,6 +155,30 @@ export default function BranchClient({ branch }: { branch: Branch }) {
             <p className="mt-3 text-sm sm:text-base text-[#0B1F3A] leading-[1.9]">
               {description}
             </p>
+            {(address || landmark) && (
+              <dl className="mt-5 grid sm:grid-cols-2 gap-4 text-sm">
+                {address && (
+                  <div className="rounded-2xl bg-[#F5F7FA] border border-[#E6EAF2] px-4 py-3">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wider text-[#667085]">
+                      {bp.addressTitle}
+                    </dt>
+                    <dd className="mt-1 text-[#0B1F3A] font-medium leading-snug">
+                      {address}
+                    </dd>
+                  </div>
+                )}
+                {landmark && (
+                  <div className="rounded-2xl bg-[#F5F7FA] border border-[#E6EAF2] px-4 py-3">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wider text-[#667085]">
+                      {bp.landmarkTitle}
+                    </dt>
+                    <dd className="mt-1 text-[#0B1F3A] font-medium leading-snug">
+                      {landmark}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            )}
           </motion.div>
         </div>
       </section>
