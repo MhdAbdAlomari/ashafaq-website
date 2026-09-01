@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "./LanguageProvider";
+import StoreButtons from "./StoreButtons";
 import { withBranchCount } from "@/lib/i18n";
 import { BRANCH_COUNT_DISPLAY } from "@/lib/branches";
-import { trackEvent } from "@/lib/analytics";
 
 export default function Hero() {
   const { dict } = useLang();
@@ -52,26 +51,22 @@ export default function Hero() {
             {withBranchCount(dict.hero.subheadline)}
           </motion.p>
 
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="mt-4 text-sm sm:text-base font-bold text-[#1F5EFF]"
+          >
+            {dict.common.brandTagline}
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.4 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
+            transition={{ duration: 0.9, delay: 0.45 }}
+            className="mt-8"
           >
-            <Link
-              href="/app/"
-              onClick={() => trackEvent("app_download_click", { source: "hero" })}
-              className="btn-primary shine text-sm sm:text-base"
-            >
-              {dict.hero.downloadApp}
-            </Link>
-            <Link
-              href="/contact/"
-              onClick={() => trackEvent("booking_click", { source: "hero" })}
-              className="btn-secondary text-sm sm:text-base"
-            >
-              {dict.hero.bookNow}
-            </Link>
+            <StoreButtons source="hero" showNote />
           </motion.div>
 
           {/* Trust strip — qualitative language only, no fabricated stats */}

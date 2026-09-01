@@ -169,8 +169,8 @@ export default function Navbar() {
             {locale === "ar" ? "EN" : "ع"}
           </button>
           <Link
-            href="/contact/"
-            onClick={() => trackEvent("booking_click", { source: "navbar_desktop" })}
+            href="/app/"
+            onClick={() => trackEvent("app_download_click", { source: "navbar_desktop" })}
             className="hidden sm:inline-flex items-center h-9 px-5 text-sm font-semibold rounded-full bg-[#1F5EFF] text-white shine hover:bg-[#1A50DA] transition-colors shadow-[0_6px_16px_-6px_rgba(31,94,255,0.45)]"
           >
             {dict.nav.bookNow}
@@ -270,9 +270,9 @@ export default function Navbar() {
               )}
               <li className="pt-2">
                 <Link
-                  href="/contact/"
+                  href="/app/"
                   onClick={() => {
-                    trackEvent("booking_click", { source: "navbar_mobile" });
+                    trackEvent("app_download_click", { source: "navbar_mobile" });
                     handleMobileClick();
                   }}
                   className="block w-full text-center px-4 py-3 text-base font-bold rounded-xl bg-[#1F5EFF] text-white hover:bg-[#1A50DA] transition-colors"
