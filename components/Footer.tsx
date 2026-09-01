@@ -25,11 +25,17 @@ export default function Footer() {
         <div className="lg:col-span-2">
           <Image
             src="/images/Logo_white.png"
-            alt={dict.footer.brand}
+            alt={dict.common.brandOfficial}
             width={500}
             height={268}
             className="h-11 w-auto object-contain"
           />
+          <div className="mt-3 text-lg font-extrabold text-white leading-tight">
+            {dict.common.brandOfficial}
+          </div>
+          <div className="mt-1 text-sm font-bold text-[#8FB4FF]">
+            {dict.common.brandTagline}
+          </div>
           <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-sm">
             {dict.footer.tagline}
           </p>
@@ -192,7 +198,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] sm:text-xs text-white/60 text-center sm:text-start">
           <div>
-            © {year} {dict.footer.brand}. {dict.footer.rights}.
+            © {year} {dict.common.brandOfficial}. {dict.footer.rights}.
           </div>
           <div>{dict.footer.madeIn}</div>
         </div>

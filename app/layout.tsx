@@ -25,11 +25,11 @@ const SITE_URL = "https://ashafaq-wash.net";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "الشفق لغسيل السيارات | Ashafaq Car Wash",
-    template: "%s | الشفق لغسيل السيارات",
+    default: "مغاسل الشفق للسيارات | سيارتك تستاهل المشوار",
+    template: "%s | مغاسل الشفق للسيارات",
   },
   description:
-    `الشفق لغسيل السيارات: غسيل احترافي، تلميع، وخدمة متنقلة في الرياض. أكثر من ${BRANCH_COUNT} فرع. جودة موثوقة وخدمة احترافية. حمّل التطبيق واحجز الآن.`,
+    `مغاسل الشفق للسيارات: غسيل احترافي، تلميع، وخدمة متنقلة في الرياض. ${BRANCH_COUNT} فرعًا. الحجز حصريًا عبر تطبيق Ashafaq — سيارتك تستاهل المشوار.`,
   keywords: [
     "غسيل سيارات الرياض",
     "غسيل سيارات متنقل",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Ashafaq Car Wash",
     title: "الشفق لغسيل السيارات | Ashafaq Car Wash",
     description:
-      `غسيل سيارات احترافي في الرياض — أكثر من ${BRANCH_COUNT} فرع وخدمة غسيل متنقلة. جودة موثوقة وخدمة احترافية.`,
+      `غسيل سيارات احترافي في الرياض — ${BRANCH_COUNT} فرعًا وخدمة غسيل متنقلة. جودة موثوقة وخدمة احترافية.`,
     images: [
       {
         url: "/images/Logo1.png",
@@ -106,8 +106,10 @@ const jsonLd = {
     {
   "@type": "Organization",
   "@id": `${SITE_URL}/#business`,
-  name: "Ashafaq Car Wash",
-  alternateName: "مغاسل الشفق للسيارات",
+  name: "مغاسل الشفق للسيارات",
+  alternateName: "Ashafaq Car Wash",
+  legalName: "مغاسل الشفق للسيارات",
+  slogan: "سيارتك تستاهل المشوار",
   url: SITE_URL,
   logo: `${SITE_URL}/icon.png`,
   image: `${SITE_URL}/icon.png`,
