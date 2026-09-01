@@ -11,6 +11,22 @@ export function withBranchCount(s: string): string {
   return s.replace(/\{count\}/g, String(BRANCH_COUNT));
 }
 
+/** Verified founding year — used everywhere years-of-experience is derived. */
+export const FOUNDED_YEAR = 2017;
+
+/**
+ * Years-of-experience derived from FOUNDED_YEAR. Uses the current year at
+ * render time so the number stays honest without touching code annually.
+ */
+export function yearsOfExperience(): number {
+  return Math.max(0, new Date().getFullYear() - FOUNDED_YEAR);
+}
+
+/** Replace {years} placeholder in i18n strings with the derived year count. */
+export function withYearsOfExperience(s: string): string {
+  return s.replace(/\{years\}/g, String(yearsOfExperience()));
+}
+
 const EMAIL = "ashafaq.wash@gmail.com";
 
 /**
@@ -42,6 +58,13 @@ export const dictionaries = {
       branchesShort: "فروع",
       foundedShort: "تأسست",
       onSiteShort: "عند موقعك",
+      bookAppOnlyNote: "الحجز متاح حصريًا عبر تطبيق Ashafaq",
+      brandOfficial: "مغاسل الشفق للسيارات",
+      brandTagline: "سيارتك تستاهل المشوار",
+      appStoreLabel: "App Store",
+      googlePlayLabel: "Google Play",
+      downloadOnAppStore: "حمّل من App Store",
+      getItOnGooglePlay: "حمّل من Google Play",
     },
     nav: {
       home: "الرئيسية",
@@ -57,26 +80,26 @@ export const dictionaries = {
       faq: "الأسئلة الشائعة",
       franchise: "الامتياز",
       contact: "تواصل معنا",
-      bookNow: "احجز الآن",
+      bookNow: "حمّل التطبيق واحجز",
       openMenu: "افتح القائمة",
       closeMenu: "أغلق القائمة",
     },
     hero: {
-      eyebrow: "الشفق لغسيل السيارات",
+      eyebrow: "مغاسل الشفق للسيارات",
       headline: "غسيل سيارات احترافي أينما كنت",
       subheadline:
-        "أكثر من {count} فرع في الرياض وخدمة غسيل متنقلة تصلك إلى المنزل أو مقر العمل.",
+        "{count} فرعًا في الرياض وخدمة غسيل متنقلة تصلك إلى المنزل أو مقر العمل.",
       downloadApp: "حمّل التطبيق",
-      bookNow: "احجز الآن",
+      bookNow: "حمّل التطبيق واحجز",
       sinceBadge: "منذ 2017",
     },
     trust: {
       title: "ثقتك ركيزتنا",
-      subtitle: "أرقام تعكس التزامنا بالجودة والخدمة المميزة",
+      subtitle: "أرقام موثّقة تعكس التزامنا بالجودة والخدمة المميزة",
       stats: [
         { value: "2017", label: "تأسست عام" },
-        { value: "{count}+", label: "فرع في الرياض" },
-        { value: "★", label: "خدمة عند موقعك" },
+        { value: "{years}+", label: "سنوات خبرة" },
+        { value: "{count}", label: "فرعًا في الرياض" },
         { value: "✓", label: "جودة موثوقة وخدمة احترافية" },
         { value: "100%", label: "منتجات عالمية مختارة" },
       ],
@@ -91,7 +114,7 @@ export const dictionaries = {
         },
         {
           title: "الغسيل الداخلي والخارجي",
-          desc: "تنظيف عميق للمقصورة والهيكل بأحدث التقنيات.",
+          desc: "تنظيف المقصورة والهيكل بعناية باستخدام أحدث التقنيات.",
         },
         {
           title: "الغسيل المتنقل",
@@ -99,7 +122,7 @@ export const dictionaries = {
         },
         {
           title: "خدمات الفروع",
-          desc: "أكثر من {count} فرع موزعة في أرجاء الرياض لخدمتك.",
+          desc: "{count} فرعًا موزعة في أرجاء الرياض لخدمتك.",
         },
       ],
     },
@@ -226,7 +249,7 @@ export const dictionaries = {
     contact: {
       title: "جاهز لتجربة مختلفة؟",
       subtitle:
-        "حمّل التطبيق الآن أو تواصل معنا مباشرة لحجز موعدك أو الاستفسار عن خدماتنا.",
+        "حمّل التطبيق للحجز، أو تواصل معنا للاستفسار وخدمة العملاء.",
       download: "حمّل التطبيق",
       contactUs: "تواصل معنا",
       whatsapp: "واتساب",
@@ -263,7 +286,7 @@ export const dictionaries = {
           bullets: [
             "غسيل الهيكل بمنتجات آمنة على الطلاء",
             "تنظيف الجنوط والإطارات",
-            "تلميع نهائي سريع للطلاء",
+            "تجفيف ولمعان نهائي للهيكل",
           ],
         },
         {
@@ -271,7 +294,7 @@ export const dictionaries = {
           desc: "تنظيف كامل من الداخل والخارج ليصبح مقصورتك ومظهر سيارتك كالجديدة.",
           bullets: [
             "غسيل خارجي كامل للهيكل والجنوط",
-            "تنظيف عميق للمقصورة والأرضيات",
+            "تنظيف المقصورة والأرضيات بعناية",
             "تلميع الطبلون وتعطير المقصورة",
           ],
         },
@@ -289,12 +312,20 @@ export const dictionaries = {
           desc: "غطاء للقير يحمي المنطقة من أي أثر خلال التنقل.",
         },
         {
+          title: "تكييس عصا الإشارات",
+          desc: "غطاء واقٍ لعصا الإشارات يحافظ عليها نظيفة بعد الغسيل.",
+        },
+        {
+          title: "تكييس المساحات",
+          desc: "غطاء لعصي المساحات يحفظها من الأتربة والانبعاثات.",
+        },
+        {
           title: "تعليقة عطر الشفق",
           desc: "عطر مميز يترك مقصورتك بانتعاش يدوم بعد كل غسلة.",
         },
       ],
       viewPrices: "شاهد الأسعار",
-      bookNow: "احجز الآن",
+      bookNow: "حمّل التطبيق واحجز",
     },
     pricesPage: {
       eyebrow: "الأسعار",
@@ -326,7 +357,7 @@ export const dictionaries = {
       ],
       whatsIncluded: "تعرف على ما تشمله كل خدمة",
       ctaTitle: "جاهز نبدأ؟",
-      ctaSubtitle: "احجز غسلتك خلال ثوانٍ من التطبيق أو تواصل معنا مباشرة.",
+      ctaSubtitle: "احجز غسلتك خلال ثوانٍ من التطبيق، وللاستفسارات تواصل معنا.",
       downloadApp: "حمّل التطبيق",
       contactUs: "تواصل معنا",
       whySizeTitle: "لماذا يختلف السعر حسب حجم السيارة؟",
@@ -350,7 +381,7 @@ export const dictionaries = {
       eyebrow: "الفروع",
       title: "فروع الشفق في الرياض",
       subtitle:
-        "أكثر من {count} فرعاً موزعة في أرجاء الرياض لخدمتك. اختر الفرع الأقرب وابدأ رحلتك مع الشفق.",
+        "{count} فرعًا في الرياض لخدمتك. اختر الفرع الأقرب وابدأ رحلتك مع الشفق.",
       openBranch: "شاهد صفحة الفرع",
       openBranchPage: "افتح صفحة الفرع",
       hoursLabel: "ساعات العمل",
@@ -359,6 +390,12 @@ export const dictionaries = {
       unifiedCaption: "رقم خدمة العملاء والواتساب الموحد لجميع الفروع",
       mapHeading: "خريطة الفروع",
       listHeading: "قائمة الفروع",
+      findNearest: "حدد أقرب فرع",
+      findingNearest: "جارٍ تحديد موقعك…",
+      nearestResult: "أقرب فرع لك",
+      nearestGoTo: "افتح صفحة الفرع",
+      nearestError: "تعذّر تحديد موقعك. يمكنك اختيار الفرع يدويًا من القائمة.",
+      nearestUnsupported: "المتصفح لا يدعم تحديد الموقع.",
     },
     branchPage: {
       breadcrumbBranches: "الفروع",
@@ -383,6 +420,9 @@ export const dictionaries = {
       whatsapp: "واتساب",
       unifiedCaption: "رقم خدمة العملاء والواتساب الموحد لجميع الفروع",
       waMessagePrefix: "السلام عليكم، أستفسر عن خدمات",
+      addressTitle: "العنوان",
+      landmarkTitle: "معلم قريب",
+      dataPendingNote: "سيتم تحديث هذه المعلومة عند اعتمادها رسميًا.",
     },
     fleetPage: {
       eyebrow: "للشركات",
@@ -423,7 +463,7 @@ export const dictionaries = {
       subtitle:
         "احجز غسيل سيارتك من هاتفك خلال ثوانٍ، وتابع طلبك لحظة بلحظة، وأدر مدفوعاتك بسهولة.",
       capabilitiesEyebrow: "من التطبيق",
-      capabilitiesTitle: "شو فيك تسوي من التطبيق؟",
+      capabilitiesTitle: "ماذا يمكنك إنجازه عبر التطبيق؟",
       capabilities: [
         {
           title: "حجز غسيل متنقل لموقعك",
@@ -452,7 +492,7 @@ export const dictionaries = {
       howTitle: "كيف تعمل الخدمة؟",
       howBody:
         "بدل أن تقود سيارتك إلى المغسلة، يصل فريقنا إلى موقعك لتنفيذ الغسيل وفق الخيارات المتاحة. الأمر ليس مجرد «غسيل في البيت»، بل طريقة مختلفة للحصول على الخدمة تعتمد على راحتك ووقتك.",
-      audienceTitle: "مين بتناسبه الخدمة؟",
+      audienceTitle: "لمن تناسب خدمة الغسيل المتنقل؟",
       audience: [
         "أصحاب الجداول المزدحمة",
         "الموظفين أثناء وجودهم في العمل",
@@ -512,7 +552,7 @@ export const dictionaries = {
             },
             {
               q: "هل توجد إضافات مجانية؟",
-              a: "نعم، من اللمسات التي تقدمها الشفق: تلبيس الدركسون، تلبيس القير، تعليقة عطر الشفق.",
+              a: "نعم، لمسات الشفق المجانية خمس: تلبيس الدركسون، تلبيس القير، تكييس عصا الإشارات، تكييس المساحات، وتعليقة عطر الشفق.",
             },
             {
               q: "هل يوجد غسيل داخلي وخارجي؟",
@@ -638,19 +678,15 @@ export const dictionaries = {
       eyebrow: "تواصل معنا",
       title: "نحن هنا للإجابة على استفساراتك",
       subtitle:
-        "اختر الطريقة الأنسب لك للتواصل، أو أرسل لنا رسالة مباشرة من النموذج أدناه.",
-      formTitle: "أرسل لنا رسالة",
-      formSubtitle: "سنعاود التواصل معك في أقرب وقت.",
-      deliveryNote:
-        "عند الإرسال، سيفتح تطبيق واتساب أو تطبيق البريد لديك برسالة جاهزة — أنت من يضغط «إرسال» في النهاية.",
-      nameLabel: "الاسم",
-      namePlaceholder: "اسمك الكامل",
-      phoneLabel: "رقم الجوال",
-      phonePlaceholder: "05xxxxxxxx",
-      messageLabel: "رسالتك",
-      messagePlaceholder: "كيف يمكننا مساعدتك؟",
-      sendWhatsapp: "أرسل عبر واتساب",
-      sendEmail: "أرسل عبر البريد",
+        "قسم التواصل مخصص للاستفسارات فقط. للحجز، يرجى تحميل تطبيق Ashafaq واختيار الخدمة المناسبة.",
+      inquiryTitle: "استفسار مباشر عبر واتساب",
+      inquirySubtitle:
+        "أسرع طريقة للتواصل معنا — اضغط الزر ليفتح واتساب على المحادثة مباشرة.",
+      openWhatsapp: "افتح واتساب",
+      callInstead: "تفضل الاتصال؟",
+      bookingRedirectTitle: "تبحث عن الحجز؟",
+      bookingRedirectBody:
+        "الحجز متاح حصريًا عبر تطبيق Ashafaq. حمّل التطبيق من App Store أو Google Play وابدأ حجزك مباشرة.",
       channels: "قنوات التواصل",
     },
     blogPage: {
@@ -777,7 +813,7 @@ export const dictionaries = {
         "حلول متكاملة لغسيل أساطيل الشركات مع لوحة إدارة وتقارير.",
       fleetLink: "شاهد خدمة الشركات",
       branchesEyebrow: "الفروع",
-      branchesTitle: "أكثر من {count} فرعاً في الرياض",
+      branchesTitle: "{count} فرعًا في الرياض",
       branchesSubtitle: "اعثر على أقرب فرع لك واستمتع بخدمتنا.",
       branchesLink: "شاهد الفروع",
       contactStripTitle: "تواصل معنا مباشرة",
@@ -799,6 +835,13 @@ export const dictionaries = {
       branchesShort: "Branches",
       foundedShort: "Founded",
       onSiteShort: "On‑site",
+      bookAppOnlyNote: "Booking is available exclusively through the Ashafaq app",
+      brandOfficial: "Ashafaq Car Wash",
+      brandTagline: "Your car deserves the drive",
+      appStoreLabel: "App Store",
+      googlePlayLabel: "Google Play",
+      downloadOnAppStore: "Download on the App Store",
+      getItOnGooglePlay: "Get it on Google Play",
     },
     nav: {
       home: "Home",
@@ -814,7 +857,7 @@ export const dictionaries = {
       faq: "FAQ",
       franchise: "Franchise",
       contact: "Contact",
-      bookNow: "Book Now",
+      bookNow: "Download the app to book",
       openMenu: "Open menu",
       closeMenu: "Close menu",
     },
@@ -822,18 +865,18 @@ export const dictionaries = {
       eyebrow: "Ashafaq Car Wash",
       headline: "Professional Car Wash, Wherever You Are",
       subheadline:
-        "More than {count} branches across Riyadh, plus a mobile car wash service that comes to your home or office.",
+        "{count} branches across Riyadh, plus a mobile car wash service that comes to your home or office.",
       downloadApp: "Download the App",
-      bookNow: "Book Now",
+      bookNow: "Download the app to book",
       sinceBadge: "Since 2017",
     },
     trust: {
       title: "Built on Trust",
-      subtitle: "Numbers that reflect our commitment to quality and service",
+      subtitle: "Verified figures that reflect our commitment to quality and service",
       stats: [
         { value: "2017", label: "Founded in" },
-        { value: "{count}+", label: "Branches in Riyadh" },
-        { value: "★", label: "Service At Your Location" },
+        { value: "{years}+", label: "Years of experience" },
+        { value: "{count}", label: "Branches in Riyadh" },
         { value: "✓", label: "Trusted Quality & Professional Service" },
         { value: "100%", label: "Carefully Selected Global Products" },
       ],
@@ -848,7 +891,7 @@ export const dictionaries = {
         },
         {
           title: "Interior & Exterior Wash",
-          desc: "Deep cleaning of cabin and body using the latest techniques.",
+          desc: "Careful cleaning of the cabin and body using the latest techniques.",
         },
         {
           title: "Mobile Car Wash",
@@ -856,7 +899,7 @@ export const dictionaries = {
         },
         {
           title: "Branch Services",
-          desc: "{count}+ branches spread across Riyadh ready to serve you.",
+          desc: "{count} branches spread across Riyadh ready to serve you.",
         },
       ],
     },
@@ -983,7 +1026,7 @@ export const dictionaries = {
     contact: {
       title: "Ready for a Different Experience?",
       subtitle:
-        "Download the app now or reach out to book your appointment or ask about our services.",
+        "Download the app to book, or contact us for inquiries and customer service.",
       download: "Download the App",
       contactUs: "Contact Us",
       whatsapp: "WhatsApp",
@@ -1020,7 +1063,7 @@ export const dictionaries = {
           bullets: [
             "Body wash with paint-safe products",
             "Wheels and tires cleaning",
-            "Quick final polish for the paint",
+            "Final drying and body shine",
           ],
         },
         {
@@ -1028,7 +1071,7 @@ export const dictionaries = {
           desc: "Full inside-and-out cleaning so your cabin and exterior feel brand-new again.",
           bullets: [
             "Full exterior body, wheels, and tires",
-            "Deep cabin and floor cleaning",
+            "Careful cleaning of the cabin and floors",
             "Dashboard polish and cabin freshener",
           ],
         },
@@ -1046,12 +1089,20 @@ export const dictionaries = {
           desc: "A gear-lever cover keeps the area clean while you drive off.",
         },
         {
+          title: "Turn-Signal Stalk Cover",
+          desc: "A protective sleeve for the turn-signal stalk keeps it clean after the wash.",
+        },
+        {
+          title: "Wiper Cover",
+          desc: "A cover for the wiper arms shields them from dust and residue.",
+        },
+        {
           title: "Ashafaq Air Freshener",
           desc: "A signature scent that leaves your cabin fresh after every wash.",
         },
       ],
       viewPrices: "View prices",
-      bookNow: "Book now",
+      bookNow: "Download the app to book",
     },
     pricesPage: {
       eyebrow: "Prices",
@@ -1083,7 +1134,7 @@ export const dictionaries = {
       ],
       whatsIncluded: "See what each service includes",
       ctaTitle: "Ready to start?",
-      ctaSubtitle: "Book your wash in seconds from the app, or reach us directly.",
+      ctaSubtitle: "Book your wash in seconds from the app — for inquiries, contact us.",
       downloadApp: "Download the app",
       contactUs: "Contact us",
       whySizeTitle: "Why does the price change with vehicle size?",
@@ -1107,7 +1158,7 @@ export const dictionaries = {
       eyebrow: "Branches",
       title: "Ashafaq branches in Riyadh",
       subtitle:
-        "More than {count} branches across Riyadh. Pick the closest one and start your Ashafaq experience.",
+        "{count} branches across Riyadh. Pick the closest one and start your Ashafaq experience.",
       openBranch: "View branch page",
       openBranchPage: "Open branch page",
       hoursLabel: "Opening hours",
@@ -1116,6 +1167,12 @@ export const dictionaries = {
       unifiedCaption: "Unified customer service & WhatsApp number for all branches",
       mapHeading: "Branches map",
       listHeading: "All branches",
+      findNearest: "Find nearest branch",
+      findingNearest: "Finding your location…",
+      nearestResult: "Your nearest branch",
+      nearestGoTo: "Open branch page",
+      nearestError: "We couldn't determine your location. Pick a branch manually from the list.",
+      nearestUnsupported: "Your browser doesn't support location detection.",
     },
     branchPage: {
       breadcrumbBranches: "Branches",
@@ -1140,6 +1197,9 @@ export const dictionaries = {
       whatsapp: "WhatsApp",
       unifiedCaption: "Unified customer service & WhatsApp number for all branches",
       waMessagePrefix: "Hello, I have a question about",
+      addressTitle: "Address",
+      landmarkTitle: "Nearby landmark",
+      dataPendingNote: "This information will be published once officially confirmed.",
     },
     fleetPage: {
       eyebrow: "For Companies",
@@ -1269,7 +1329,7 @@ export const dictionaries = {
             },
             {
               q: "Are there any free add-ons?",
-              a: "Yes — Ashafaq's finishing touches include: a steering wheel cover, a gear cover, and an Ashafaq air freshener.",
+              a: "Yes — the five free Ashafaq touches are: a steering wheel cover, a gear cover, a turn-signal stalk cover, a wiper cover, and an Ashafaq air freshener.",
             },
             {
               q: "Do you offer an interior + exterior wash?",
@@ -1394,19 +1454,16 @@ export const dictionaries = {
     contactPage: {
       eyebrow: "Contact us",
       title: "We're here to help",
-      subtitle: "Pick the channel that suits you, or send us a message directly from the form below.",
-      formTitle: "Send us a message",
-      formSubtitle: "We'll get back to you as soon as possible.",
-      deliveryNote:
-        "On send, WhatsApp or your email app opens with the message pre-filled — you tap 'send' from there.",
-      nameLabel: "Name",
-      namePlaceholder: "Your full name",
-      phoneLabel: "Phone number",
-      phonePlaceholder: "05xxxxxxxx",
-      messageLabel: "Your message",
-      messagePlaceholder: "How can we help?",
-      sendWhatsapp: "Send via WhatsApp",
-      sendEmail: "Send via email",
+      subtitle:
+        "Contact is for inquiries only. To book, please download the Ashafaq app and choose your service.",
+      inquiryTitle: "Direct WhatsApp inquiry",
+      inquirySubtitle:
+        "The fastest way to reach us — tap the button to open WhatsApp straight into a chat.",
+      openWhatsapp: "Open WhatsApp",
+      callInstead: "Prefer to call?",
+      bookingRedirectTitle: "Looking to book?",
+      bookingRedirectBody:
+        "Booking is exclusive to the Ashafaq app. Download from the App Store or Google Play and start your booking directly.",
       channels: "Contact channels",
     },
     blogPage: {
@@ -1532,7 +1589,7 @@ export const dictionaries = {
         "Complete corporate fleet washing with a management dashboard and reports.",
       fleetLink: "See the company service",
       branchesEyebrow: "Branches",
-      branchesTitle: "More than {count} branches in Riyadh",
+      branchesTitle: "{count} branches in Riyadh",
       branchesSubtitle: "Find your nearest branch and enjoy our service.",
       branchesLink: "See branches",
       contactStripTitle: "Reach us directly",
