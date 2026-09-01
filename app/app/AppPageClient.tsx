@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import AppSection from "@/components/AppSection";
+import StoreButtons from "@/components/StoreButtons";
 import { useLang } from "@/components/LanguageProvider";
 
 const CAPABILITY_ICONS = [
@@ -78,6 +79,9 @@ export default function AppPageClient() {
               );
             })}
           </ul>
+          <div className="mt-12 flex justify-center">
+            <StoreButtons source="app_page_bottom" align="center" showNote />
+          </div>
         </div>
       </section>
     </>

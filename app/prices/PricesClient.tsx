@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
+import StoreButtons from "@/components/StoreButtons";
 import { useLang } from "@/components/LanguageProvider";
-import { APP_LINKS } from "@/lib/branches";
 
 const SIZE_IMAGES = [
   "/images/Small_Car_new.png",
@@ -185,18 +185,8 @@ export default function PricesClient() {
             <p className="mt-3 text-sm sm:text-base text-[#667085]">
               {p.ctaSubtitle}
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href={APP_LINKS.ios}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-sm"
-              >
-                {p.downloadApp}
-              </a>
-              <Link href="/contact/" className="btn-secondary text-sm">
-                {p.contactUs}
-              </Link>
+            <div className="mt-6 flex justify-center">
+              <StoreButtons source="prices_cta" align="center" showNote />
             </div>
           </motion.div>
 

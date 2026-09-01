@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import { useLang } from "@/components/LanguageProvider";
+import { trackEvent } from "@/lib/analytics";
 
 const TOUCH_ICONS = [
   <svg key="t1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>,
@@ -56,7 +57,13 @@ export default function ServicesClient() {
                   <Link href="/prices/" className="btn-primary text-sm">
                     {s.viewPrices}
                   </Link>
-                  <Link href="/contact/" className="btn-secondary text-sm">
+                  <Link
+                    href="/app/"
+                    onClick={() =>
+                      trackEvent("app_download_click", { source: `services_tier_${i}` })
+                    }
+                    className="btn-secondary text-sm"
+                  >
                     {s.bookNow}
                   </Link>
                 </div>
