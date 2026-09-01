@@ -16,6 +16,14 @@ export type Branch = {
   description: string;
   /** Natural English translation of `description`. */
   descriptionEn: string;
+  /** Optional: verified street/postal address (AR). Leave undefined until officially confirmed — do NOT invent. */
+  address?: string;
+  /** Optional: verified street/postal address (EN). */
+  addressEn?: string;
+  /** Optional: verified nearby landmark (AR). Leave undefined until officially confirmed — do NOT invent. */
+  landmark?: string;
+  /** Optional: verified nearby landmark (EN). */
+  landmarkEn?: string;
   /** Optional: which service tiers this branch offers. Omit to fall back to the standard tier list on /services/. */
   servicesAvailable?: string[];
   /** Optional: path under public/images for a branch-specific photo. Leave undefined to use the site-wide fallback. */
@@ -60,16 +68,25 @@ const H24_EN = "Open 24 hours";
  * from BRANCHES.length directly so adding/removing a branch propagates
  * automatically to every place the count is displayed.
  */
+/**
+ * Derive a consistent Google Maps place URL from lat/lng — used for the
+ * "open in Google Maps" branch card action. Kept as a helper so branch
+ * coordinates remain the single source of truth (any old hand-written
+ * place URLs are gone).
+ */
+function mapsUrlFor(lat: number, lng: number): string {
+  return `https://www.google.com/maps?q=${lat},${lng}`;
+}
+
 export const BRANCHES: Branch[] = [
   {
     id: "al-nahdah",
     slug: "al-nahdah",
     nameAr: "فرع النهضة",
     nameEn: "Al Nahdah Branch",
-    lat: 24.7595898,
-    lng: 46.8321258,
-    mapsUrl:
-      "https://www.google.com/maps/place/24%C2%B045'34.5%22N+46%C2%B049'55.7%22E/@24.7595898,46.8343145,753m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d24.7595898!4d46.8321258",
+    lat: 24.759859212874538,
+    lng: 46.83212793031103,
+    mapsUrl: mapsUrlFor(24.759859212874538, 46.83212793031103),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-nahdah.jpeg",
@@ -83,10 +100,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-aziziyah",
     nameAr: "فرع العزيزية",
     nameEn: "Al Aziziyah Branch",
-    lat: 24.596211000247703,
-    lng: 46.78272686898708,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.596211000247703,46.78272686898708",
+    lat: 24.596211000248,
+    lng: 46.782726868987,
+    mapsUrl: mapsUrlFor(24.596211000248, 46.782726868987),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-aziziyah.jpeg",
@@ -100,10 +116,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-nadwah",
     nameAr: "فرع الندوة",
     nameEn: "Al Nadwah Branch",
-    lat: 24.80126398855043,
-    lng: 46.86971694231033,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.80126398855043,46.86971694231033",
+    lat: 24.80126398855,
+    lng: 46.86971694231,
+    mapsUrl: mapsUrlFor(24.80126398855, 46.86971694231),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-nadwah.jpeg",
@@ -117,10 +132,10 @@ export const BRANCHES: Branch[] = [
     slug: "al-munsiyah",
     nameAr: "فرع المونسية",
     nameEn: "Al Munsiyah Branch",
-    lat: 24.728818530100067,
-    lng: 46.6438438774883,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.728818530100067,46.6438438774883",
+    // Manager-corrected coordinates (previous 24.7288, 46.6438 were wrong).
+    lat: 24.83595972203233,
+    lng: 46.764196263438826,
+    mapsUrl: mapsUrlFor(24.83595972203233, 46.764196263438826),
     hours: H24_AR,
     hoursEn: H24_EN,
     photoSrc: "/images/ashafaq-branches/al-munsiyah.jpeg",
@@ -134,10 +149,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-manar",
     nameAr: "فرع المنار",
     nameEn: "Al Manar Branch",
-    lat: 24.71562360773457,
-    lng: 46.798729598522186,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.71562360773457,46.798729598522186",
+    lat: 24.715623607735,
+    lng: 46.798729598522,
+    mapsUrl: mapsUrlFor(24.715623607735, 46.798729598522),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-manar.jpeg",
@@ -151,10 +165,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-fayha",
     nameAr: "فرع الفيحاء",
     nameEn: "Al Fayha Branch",
-    lat: 24.67279714075207,
-    lng: 46.81529760360718,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.67279714075207,46.81529760360718",
+    lat: 24.672797140752,
+    lng: 46.815297603607,
+    mapsUrl: mapsUrlFor(24.672797140752, 46.815297603607),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-fayha.jpeg",
@@ -168,10 +181,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-uraija",
     nameAr: "فرع العريجاء",
     nameEn: "Al Uraija Branch",
-    lat: 24.583414692971363,
-    lng: 46.601438373327255,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.583414692971363,46.601438373327255",
+    lat: 24.583414692971,
+    lng: 46.601438373327,
+    mapsUrl: mapsUrlFor(24.583414692971, 46.601438373327),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-uraija.jpeg",
@@ -185,10 +197,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-shifa",
     nameAr: "فرع الشفاء",
     nameEn: "Al Shifa Branch",
-    lat: 24.547537943461947,
-    lng: 46.675007343292236,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.547537943461947,46.675007343292236",
+    lat: 24.547537943462,
+    lng: 46.675007343292,
+    mapsUrl: mapsUrlFor(24.547537943462, 46.675007343292),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-shifa.jpeg",
@@ -202,10 +213,9 @@ export const BRANCHES: Branch[] = [
     slug: "dar-al-baida",
     nameAr: "فرع الدار البيضاء",
     nameEn: "Dar Al Baida Branch",
-    lat: 24.5587868,
-    lng: 46.7572095,
-    mapsUrl:
-      "https://www.google.com/maps/place/24%C2%B033'31.6%22N+46%C2%B045'26.0%22E/@24.5587868,46.7593982,754m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d24.5587868!4d46.7572095",
+    lat: 24.558786793018,
+    lng: 46.757209541247,
+    mapsUrl: mapsUrlFor(24.558786793018, 46.757209541247),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/dar-al-baida.jpeg",
@@ -219,10 +229,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-badiah",
     nameAr: "فرع البديعة",
     nameEn: "Al Badiah Branch",
-    lat: 24.58254393681625,
-    lng: 46.63347601890564,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.58254393681625,46.63347601890564",
+    lat: 24.582543936816,
+    lng: 46.633476018906,
+    mapsUrl: mapsUrlFor(24.582543936816, 46.633476018906),
     hours: H24_AR,
     hoursEn: H24_EN,
     photoSrc: "/images/ashafaq-branches/al-badiah.jpeg",
@@ -236,10 +245,9 @@ export const BRANCHES: Branch[] = [
     slug: "al-tuwaiq",
     nameAr: "فرع الطويق",
     nameEn: "Al Tuwaiq Branch",
-    lat: 24.55219256532426,
-    lng: 46.570284342375544,
-    mapsUrl:
-      "https://www.google.com/maps?q=24.55219256532426,46.570284342375544",
+    lat: 24.55225535480666,
+    lng: 46.57029028650691,
+    mapsUrl: mapsUrlFor(24.55225535480666, 46.57029028650691),
     hours: DEFAULT_HOURS_AR,
     hoursEn: DEFAULT_HOURS_EN,
     photoSrc: "/images/ashafaq-branches/al-tuwaiq.jpeg",
@@ -257,14 +265,34 @@ export const BRANCHES: Branch[] = [
 export const BRANCH_COUNT = BRANCHES.length;
 
 /**
- * Formatted branch count string with the "+" suffix used in stat chips.
- * Example: "10+".
+ * Formatted branch count string. Currently just the exact number — the
+ * dataset is the total, not a floor, per manager instruction: if the count
+ * ever becomes larger than what's listed, the extra branches must be added
+ * to BRANCHES rather than represented as a "+" suffix.
  */
-export const BRANCH_COUNT_DISPLAY = `${BRANCHES.length}+`;
+export const BRANCH_COUNT_DISPLAY = `${BRANCHES.length}`;
 
 /** Look up a branch by its URL slug. */
 export function getBranchBySlug(slug: string): Branch | undefined {
   return BRANCHES.find((b) => b.slug === slug);
+}
+
+/**
+ * Find the nearest branch to a given lat/lng using Euclidean distance —
+ * accurate enough at Riyadh scale (no haversine needed). Used by the
+ * "حدد أقرب فرع" (find nearest branch) UI on /branches.
+ */
+export function findNearestBranch(lat: number, lng: number): Branch {
+  let best = BRANCHES[0];
+  let bestD = Number.POSITIVE_INFINITY;
+  for (const b of BRANCHES) {
+    const d = Math.hypot(b.lat - lat, b.lng - lng);
+    if (d < bestD) {
+      bestD = d;
+      best = b;
+    }
+  }
+  return best;
 }
 
 /**
